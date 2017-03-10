@@ -2,12 +2,12 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: pysemeels
-   :synopsis: Python scripts to analyze SEM EELS spectrum.
+.. py:currentmodule:: pysemeels.tests
+   :synopsis: Regression testing for the project.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Python scripts to analyze SEM EELS spectrum.
+Regression testing for the project.
 """
 
 ###############################################################################
@@ -27,7 +27,6 @@ Python scripts to analyze SEM EELS spectrum.
 ###############################################################################
 
 # Standard library modules.
-import os.path
 
 # Third party modules.
 
@@ -36,15 +35,10 @@ import os.path
 # Project modules.
 
 # Globals and constants variables.
-__author__ = """Hendrix Demers"""
-__email__ = 'hendrix.demers@mail.mcgill.ca'
-__version__ = '0.1.0'
 
+if __name__ == "__main__":  # pragma: no cover
+    import logging
+    logging.getLogger().setLevel(logging.INFO)
 
-def get_current_module_path(modulePath, relativePath=""):
-    basepath = os.path.dirname(modulePath)
-
-    filepath = os.path.join(basepath, relativePath)
-    filepath = os.path.normpath(filepath)
-
-    return filepath
+    import nose
+    nose.main()
