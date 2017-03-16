@@ -9,7 +9,6 @@
 
 Read elv file.
 """
-from future.backports.misc import count
 
 ###############################################################################
 # Copyright 2017 Hendrix Demers

@@ -35,8 +35,12 @@ Read elv file.
 # Project modules.
 
 # Globals and constants variables.
+class Spectrum():
+    def __init__(self):
+        self.energies_eV = []
+        self.counts = []
 
-class ElvFile():
+class AnaFile():
     def __init__(self):
         pass
 
@@ -45,13 +49,19 @@ class ElvFile():
 
         self.energies_eV = []
         self.counts = []
-        self.gain_corrections = []
-        self.dark_currents = []
+
+        self.raw_spectra = []
+        self.raw_spectrum_id = -1
 
         for line in lines:
+            if line.startswith("raw data"):
+                self.raw_spectra.append(Spectrum())
+                self.raw_spectrum_id += 1
+
             try:
                 keyword, value = line.split('=')
 
+                keyword = keyword.strip()
                 value = value.strip()
 
                 if keyword.startswith("date"):
@@ -60,7 +70,7 @@ class ElvFile():
                     self.time = value
                 elif keyword.startswith("comment"):
                     self.comment = value
-                elif keyword.startswith("dose"):
+                elif keyword.startswith("Dose"):
                     self.dose = value
                 elif keyword.startswith("Energy Window Width"):
                     self.energy_width = value
@@ -76,6 +86,8 @@ class ElvFile():
                     self.q2s = int(value)
                 elif keyword == "Q3":
                     self.q3 = int(value)
+                elif keyword == "Q3S":
+                    self.q3s = int(value)
                 elif keyword == "H1":
                     self.h1 = int(value)
                 elif keyword == "H1S":
@@ -84,8 +96,10 @@ class ElvFile():
                     self.h2 = int(value)
                 elif keyword == "H2S":
                     self.h2s = int(value)
-                elif keyword == "H4":
-                    self.h4 = int(value)
+                elif keyword == "H3":
+                    self.h3 = int(value)
+                elif keyword == "H3S":
+                    self.h3s = int(value)
                 elif keyword.startswith("ELV-x"):
                     self.elv_x = int(value)
                 elif keyword.startswith("ELV-y"):
@@ -98,9 +112,9 @@ class ElvFile():
                     self.det_spec_alignment_x = int(value)
                 elif keyword.startswith("DET alignment-y(spec.)"):
                     self.det_spec_alignment_y = int(value)
-                elif keyword.startswith("DET alignment-x(map)"):
+                elif keyword.startswith("Det. align-x"):
                     self.det_map_alignment_x = int(value)
-                elif keyword.startswith("DET alignment-y(map)"):
+                elif keyword.startswith("Det. align-y"):
                     self.det_map_alignment_y = int(value)
                 elif keyword.startswith("Mag"):
                     self.mag = int(value)
@@ -116,87 +130,66 @@ class ElvFile():
                                 self.le = value
                             elif keyword.startswith("Raw"):
                                 self.raw = float(value)
-                            elif keyword.startswith("Dual det. position"):
+                            elif keyword.startswith("Image det. position"):
                                 self.dual_det_position = value
                             elif keyword.startswith("post"):
                                 self.dual_det_post = value
                         except ValueError:
                             if len(items) == 2:
                                 try:
-                                    if item == items[0]:
+                                    if item == items[0] and self.raw_spectrum_id == -1:
                                         energy_eV = float(items[0])
-                                        count = int(items[1])
+                                        count = float(items[1])
                                         self.energies_eV.append(energy_eV)
                                         self.counts.append(count)
+                                    elif item == items[0] and self.raw_spectrum_id > -1:
+                                        energy_eV = float(items[0])
+                                        count = float(items[1])
+                                        self.raw_spectra[self.raw_spectrum_id].energies_eV.append(energy_eV)
+                                        self.raw_spectra[self.raw_spectrum_id].counts.append(count)
                                 except ValueError:
                                     pass
-                            if len(items) == 1:
-                                if len(self.gain_corrections) < 1024:
-                                    try:
-                                        gain_correction = float(items[0])
-                                        self.gain_corrections.append(gain_correction)
-                                    except ValueError:
-                                        pass
-                                else:
-                                    try:
-                                        dark_current = float(items[0])
-                                        self.dark_currents.append(dark_current)
-                                    except ValueError:
-                                        pass
-
                 except ValueError:
                     pass
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
-    from pysemeels import get_current_module_path
-    from pysemeels.hitachi.eels_su.ana_file import AnaFile
     import numpy as np
 
-    ana_file = AnaFile()
-    ana_file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.ana")
-    with open(ana_file_path, 'r') as elv_text_file:
-        ana_file.read(elv_text_file)
+    from pysemeels import get_current_module_path
 
-    elv_file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.elv")
-    with open(elv_file_path, 'r') as elv_text_file:
-        elv_file = ElvFile()
-        elv_file.read(elv_text_file)
+    ana_file_path = get_current_module_path(__file__, "../../../../test_data/hitachi/eels_su/30kV_march2017_7eV/spectra_1.ana")
+    with open(ana_file_path, 'r') as ana_text_file:
+        ana_file = AnaFile()
+        ana_file.read(ana_text_file)
 
         plt.figure()
-
-        plt.plot(elv_file.energies_eV, elv_file.counts, '.')
-        plt.plot(ana_file.energies_eV, ana_file.counts, '-')
-
-        corrected_counts = np.array(elv_file.counts) - np.array(elv_file.dark_currents)
         plt.plot(ana_file.energies_eV, ana_file.counts, '.')
-        plt.close()
-
-        print(elv_file.counts[0])
-        print(elv_file.gain_corrections[0])
-        print(elv_file.dark_currents[0])
-        print(ana_file.counts[0])
-        print(corrected_counts[0] - ana_file.counts[0])
-        print(int(elv_file.counts[0]) - int(elv_file.dark_currents[0]) - int(ana_file.counts[0]))
-        print(elv_file.counts[0]*elv_file.gain_corrections[0] - elv_file.dark_currents[0])
-        print(elv_file.counts[0]/elv_file.gain_corrections[0] - elv_file.dark_currents[0])
-        print((elv_file.counts[0] - elv_file.dark_currents[0])*elv_file.gain_corrections[0])
-        print((elv_file.counts[0] - elv_file.dark_currents[0])/elv_file.gain_corrections[0])
-        print(elv_file.counts[0] - elv_file.dark_currents[0]*elv_file.gain_corrections[0])
-        print(elv_file.counts[0] - elv_file.dark_currents[0]/elv_file.gain_corrections[0])
+        energy_eV = ana_file.energies_eV[133]
+        plt.axvline(energy_eV)
+        energy_eV = ana_file.energies_eV[586]
+        plt.axvline(energy_eV)
+        energy_eV = ana_file.energies_eV[608]
+        plt.axvline(energy_eV)
 
         plt.figure()
+        for spectrum in ana_file.raw_spectra:
+            plt.plot(spectrum.energies_eV, spectrum.counts, '.')
 
         plt.plot(ana_file.energies_eV, ana_file.counts, '-')
-        for energy_eV in [-30.0, -20.0, -10.0, 0.0, 10, 20.0]:
-            plt.axvline(energy_eV, ls='--', color='b')
 
-        for min_index in [586, 443, 300]:
-            min_energy_eV = ana_file.energies_eV[min_index]
-            max_energy_eV = ana_file.energies_eV[min_index+133]
-            plt.axvspan(min_energy_eV, max_energy_eV, color='r', alpha=0.5)
+        spectra = np.zeros((len(ana_file.raw_spectra), len(ana_file.energies_eV)))
+        print(spectra.shape)
 
-        plt.xlim((ana_file.energies_eV[0], ana_file.energies_eV[-1]))
-        plt.subplots_adjust(left=0.0, bottom=0.0, right=1.0, top=1.0)
+        for spectrum_id, spectrum in enumerate(ana_file.raw_spectra):
+            spectra[spectrum_id, :] = spectrum.counts
+
+        plt.figure()
+        plt.plot(ana_file.energies_eV, ana_file.counts, '-')
+        plt.plot(ana_file.energies_eV, np.mean(spectra, axis=0), '.')
+
+        plt.figure()
+        plt.plot(ana_file.energies_eV, ana_file.counts - np.mean(spectra, axis=0), '.')
+
         plt.show()
 
