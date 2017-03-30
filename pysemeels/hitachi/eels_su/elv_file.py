@@ -36,6 +36,15 @@ Read elv file.
 
 # Globals and constants variables.
 
+
+class SpectrumData():
+    def __init__(self):
+        self.energies_eV = []
+        self.counts = []
+        self.gain_corrections = []
+        self.dark_currents = []
+
+
 class ElvFile():
     def __init__(self):
         pass
@@ -146,6 +155,15 @@ class ElvFile():
 
                 except ValueError:
                     pass
+    def get_spectrum_data(self):
+        spectrum_data = SpectrumData()
+        spectrum_data.energies_eV = self.energies_eV
+        spectrum_data.counts = self.counts
+        spectrum_data.gain_corrections = self.gain_corrections
+        spectrum_data.dark_currents = self.dark_currents
+
+        return spectrum_data
+
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
@@ -168,9 +186,9 @@ if __name__ == '__main__':
         plt.plot(elv_file.energies_eV, elv_file.counts, '.')
         plt.plot(ana_file.energies_eV, ana_file.counts, '-')
 
-        corrected_counts = np.array(elv_file.counts) - np.array(elv_file.dark_currents)
-        plt.plot(ana_file.energies_eV, ana_file.counts, '.')
-        plt.close()
+        corrected_counts =(np.array(elv_file.counts) - np.array(elv_file.dark_currents))/np.array(elv_file.gain_corrections)
+        plt.plot(ana_file.energies_eV, corrected_counts, '.')
+        #plt.close()
 
         print(elv_file.counts[0])
         print(elv_file.gain_corrections[0])
@@ -183,10 +201,16 @@ if __name__ == '__main__':
         print((elv_file.counts[0] - elv_file.dark_currents[0])*elv_file.gain_corrections[0])
         print((elv_file.counts[0] - elv_file.dark_currents[0])/elv_file.gain_corrections[0])
         print(elv_file.counts[0] - elv_file.dark_currents[0]*elv_file.gain_corrections[0])
-        print(elv_file.counts[0] - elv_file.dark_currents[0]/elv_file.gain_corrections[0])
+        print(ana_file.counts[0] - (elv_file.counts[0] - elv_file.dark_currents[0])/elv_file.gain_corrections[0])
 
         plt.figure()
+        plt.plot(ana_file.energies_eV, np.array(ana_file.counts) - (np.array(elv_file.counts) - np.array(elv_file.dark_currents))/np.array(elv_file.gain_corrections))
+        plt.figure()
+        plt.plot(elv_file.energies_eV, elv_file.dark_currents, '-')
+        plt.figure()
+        plt.plot(elv_file.energies_eV, elv_file.gain_corrections, '-')
 
+        plt.figure()
         plt.plot(ana_file.energies_eV, ana_file.counts, '-')
         for energy_eV in [-30.0, -20.0, -10.0, 0.0, 10, 20.0]:
             plt.axvline(energy_eV, ls='--', color='b')
