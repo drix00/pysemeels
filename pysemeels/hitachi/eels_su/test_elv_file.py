@@ -114,11 +114,11 @@ class TestSimulationData(unittest.TestCase):
             self.assertEqual(37443, elv_file.mag)
 
             self.assertEqual(-32.00, elv_file.energies_eV[0])
-            self.assertEqual(2282, elv_file.counts[0])
+            self.assertEqual(2282, elv_file.raw_counts[0])
             self.assertEqual(21.84, elv_file.energies_eV[-1])
-            self.assertEqual(0, elv_file.counts[-1])
+            self.assertEqual(0, elv_file.raw_counts[-1])
             self.assertEqual(1024, len(elv_file.energies_eV))
-            self.assertEqual(1024, len(elv_file.counts))
+            self.assertEqual(1024, len(elv_file.raw_counts))
 
             self.assertEqual(0.918375, elv_file.gain_corrections[0])
             self.assertEqual(0.000000, elv_file.gain_corrections[-1])

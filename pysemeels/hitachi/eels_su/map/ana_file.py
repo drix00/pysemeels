@@ -45,112 +45,131 @@ class AnaFile():
         pass
 
     def read(self, file):
+        extracting_header_data = True
+
         lines = file.readlines()
 
         self.energies_eV = []
-        self.counts = []
+        self.total_spectra = {}
 
-        self.raw_spectra = []
-        self.raw_spectrum_id = -1
+        self.spectra = {}
+        self.spectrum_id = -1
 
         for line in lines:
-            if line.startswith("raw data"):
-                self.raw_spectra.append(Spectrum())
-                self.raw_spectrum_id += 1
+            if extracting_header_data:
+                extracting_header_data = self._extract_header_data(extracting_header_data, line)
+            else:
+                self._extract_spectra_data(line)
 
+    def _extract_spectra_data(self, line):
+        items = line.split(',')
+        if len(items) > 1:
+            if self.spectrum_id == -1:
+                energy_eV = float(items[0])
+                self.energies_eV.append(energy_eV)
+
+                for point_id, item in enumerate(items[1:]):
+                    count = float(item)
+                    self.total_spectra.setdefault(point_id, []).append(count)
+
+            if self.spectrum_id > -1:
+                energy_eV = float(items[0])
+                for point_id, item in enumerate(items[1:]):
+                    count = float(item)
+                    self.spectra.setdefault(point_id, {})
+                    self.spectra[point_id].setdefault(self.spectrum_id, Spectrum())
+                    self.spectra[point_id][self.spectrum_id].energies_eV.append(energy_eV)
+                    self.spectra[point_id][self.spectrum_id].counts.append(count)
+
+        if line.startswith("raw data"):
+            self.spectrum_id += 1
+
+
+    def _extract_header_data(self, extracting_header_data, line):
+        try:
+            keyword, value = line.split('=')
+
+            keyword = keyword.strip()
+            value = value.strip()
+
+            if keyword.startswith("date"):
+                self.date = value
+            elif keyword.startswith("Time"):
+                self.time = value
+            elif keyword.startswith("comment"):
+                self.comment = value
+            elif keyword.startswith("Dose"):
+                self.dose = value
+            elif keyword.startswith("Energy Window Width"):
+                self.energy_width = value
+            elif keyword.startswith("center"):
+                self.dual_det_center = value
+            elif keyword == "Q1":
+                self.q1 = int(value)
+            elif keyword == "Q1S":
+                self.q1s = int(value)
+            elif keyword == "Q2":
+                self.q2 = int(value)
+            elif keyword == "Q2S":
+                self.q2s = int(value)
+            elif keyword == "Q3":
+                self.q3 = int(value)
+            elif keyword == "Q3S":
+                self.q3s = int(value)
+            elif keyword == "H1":
+                self.h1 = int(value)
+            elif keyword == "H1S":
+                self.h1s = int(value)
+            elif keyword == "H2":
+                self.h2 = int(value)
+            elif keyword == "H2S":
+                self.h2s = int(value)
+            elif keyword == "H3":
+                self.h3 = int(value)
+            elif keyword == "H3S":
+                self.h3s = int(value)
+            elif keyword.startswith("ELV-x"):
+                self.elv_x = int(value)
+            elif keyword.startswith("ELV-y"):
+                self.elv_y = int(value)
+            elif keyword.startswith("Spectrum align-x"):
+                self.spectrum_alignment_x = int(value)
+            elif keyword.startswith("Spectrum align-y"):
+                self.spectrum_alignment_y = int(value)
+            elif keyword.startswith("DET alignment-x(spec.)"):
+                self.det_spec_alignment_x = int(value)
+            elif keyword.startswith("DET alignment-y(spec.)"):
+                self.det_spec_alignment_y = int(value)
+            elif keyword.startswith("Det. align-x"):
+                self.det_map_alignment_x = int(value)
+            elif keyword.startswith("Det. align-y"):
+                self.det_map_alignment_y = int(value)
+            elif keyword.startswith("Mag"):
+                self.mag = int(value)
+                extracting_header_data = False
+        except ValueError:
             try:
-                keyword, value = line.split('=')
-
-                keyword = keyword.strip()
-                value = value.strip()
-
-                if keyword.startswith("date"):
-                    self.date = value
-                elif keyword.startswith("Time"):
-                    self.time = value
-                elif keyword.startswith("comment"):
-                    self.comment = value
-                elif keyword.startswith("Dose"):
-                    self.dose = value
-                elif keyword.startswith("Energy Window Width"):
-                    self.energy_width = value
-                elif keyword.startswith("center"):
-                    self.dual_det_center = value
-                elif keyword == "Q1":
-                    self.q1 = int(value)
-                elif keyword == "Q1S":
-                    self.q1s = int(value)
-                elif keyword == "Q2":
-                    self.q2 = int(value)
-                elif keyword == "Q2S":
-                    self.q2s = int(value)
-                elif keyword == "Q3":
-                    self.q3 = int(value)
-                elif keyword == "Q3S":
-                    self.q3s = int(value)
-                elif keyword == "H1":
-                    self.h1 = int(value)
-                elif keyword == "H1S":
-                    self.h1s = int(value)
-                elif keyword == "H2":
-                    self.h2 = int(value)
-                elif keyword == "H2S":
-                    self.h2s = int(value)
-                elif keyword == "H3":
-                    self.h3 = int(value)
-                elif keyword == "H3S":
-                    self.h3s = int(value)
-                elif keyword.startswith("ELV-x"):
-                    self.elv_x = int(value)
-                elif keyword.startswith("ELV-y"):
-                    self.elv_y = int(value)
-                elif keyword.startswith("Spectrum align-x"):
-                    self.spectrum_alignment_x = int(value)
-                elif keyword.startswith("Spectrum align-y"):
-                    self.spectrum_alignment_y = int(value)
-                elif keyword.startswith("DET alignment-x(spec.)"):
-                    self.det_spec_alignment_x = int(value)
-                elif keyword.startswith("DET alignment-y(spec.)"):
-                    self.det_spec_alignment_y = int(value)
-                elif keyword.startswith("Det. align-x"):
-                    self.det_map_alignment_x = int(value)
-                elif keyword.startswith("Det. align-y"):
-                    self.det_map_alignment_y = int(value)
-                elif keyword.startswith("Mag"):
-                    self.mag = int(value)
+                items = line.split(',')
+                for item in items:
+                    try:
+                        item = item.strip()
+                        keyword, value = item.split('=')
+                        value = value.strip()
+                        if keyword.startswith("LE"):
+                            self.le = value
+                        elif keyword.startswith("Raw"):
+                            self.raw = float(value)
+                        elif keyword.startswith("Image det. position"):
+                            self.dual_det_position = value
+                        elif keyword.startswith("post"):
+                            self.dual_det_post = value
+                    except ValueError:
+                        pass
             except ValueError:
-                try:
-                    items = line.split(',')
-                    for item in items:
-                        try:
-                            item = item.strip()
-                            keyword, value = item.split('=')
-                            value = value.strip()
-                            if keyword.startswith("LE"):
-                                self.le = value
-                            elif keyword.startswith("Raw"):
-                                self.raw = float(value)
-                            elif keyword.startswith("Image det. position"):
-                                self.dual_det_position = value
-                            elif keyword.startswith("post"):
-                                self.dual_det_post = value
-                        except ValueError:
-                            if len(items) == 2:
-                                try:
-                                    if item == items[0] and self.raw_spectrum_id == -1:
-                                        energy_eV = float(items[0])
-                                        count = float(items[1])
-                                        self.energies_eV.append(energy_eV)
-                                        self.counts.append(count)
-                                    elif item == items[0] and self.raw_spectrum_id > -1:
-                                        energy_eV = float(items[0])
-                                        count = float(items[1])
-                                        self.raw_spectra[self.raw_spectrum_id].energies_eV.append(energy_eV)
-                                        self.raw_spectra[self.raw_spectrum_id].counts.append(count)
-                                except ValueError:
-                                    pass
-                except ValueError:
-                    pass
+                pass
+
+        return extracting_header_data
+
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
@@ -164,7 +183,7 @@ if __name__ == '__main__':
         ana_file.read(ana_text_file)
 
         plt.figure()
-        plt.plot(ana_file.energies_eV, ana_file.counts, '.')
+        plt.plot(ana_file.energies_eV, ana_file.total_spectra, '.')
         energy_eV = ana_file.energies_eV[133]
         plt.axvline(energy_eV)
         energy_eV = ana_file.energies_eV[586]
@@ -173,23 +192,23 @@ if __name__ == '__main__':
         plt.axvline(energy_eV)
 
         plt.figure()
-        for spectrum in ana_file.raw_spectra:
+        for spectrum in ana_file.spectra:
             plt.plot(spectrum.energies_eV, spectrum.counts, '.')
 
-        plt.plot(ana_file.energies_eV, ana_file.counts, '-')
+        plt.plot(ana_file.energies_eV, ana_file.total_spectra, '-')
 
-        spectra = np.zeros((len(ana_file.raw_spectra), len(ana_file.energies_eV)))
+        spectra = np.zeros((len(ana_file.spectra), len(ana_file.energies_eV)))
         print(spectra.shape)
 
-        for spectrum_id, spectrum in enumerate(ana_file.raw_spectra):
+        for spectrum_id, spectrum in enumerate(ana_file.spectra):
             spectra[spectrum_id, :] = spectrum.counts
 
         plt.figure()
-        plt.plot(ana_file.energies_eV, ana_file.counts, '-')
+        plt.plot(ana_file.energies_eV, ana_file.total_spectra, '-')
         plt.plot(ana_file.energies_eV, np.mean(spectra, axis=0), '.')
 
         plt.figure()
-        plt.plot(ana_file.energies_eV, ana_file.counts - np.mean(spectra, axis=0), '.')
+        plt.plot(ana_file.energies_eV, ana_file.total_spectra - np.mean(spectra, axis=0), '.')
 
         plt.show()
 

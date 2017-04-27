@@ -84,6 +84,8 @@ class ZeroLossPeak():
             indices = np.where(self.intensities-self.background >= tenth_maximum)[0]
             self.fwfm_eV = self.energies_eV[indices[-1]] - self.energies_eV[indices[0]]
 
+            self.maximum = maximum
+
     def compute_statistics(self):
         self.find_position()
 
@@ -115,9 +117,9 @@ if __name__ == '__main__':
 
         plt.figure()
 
-        plt.plot(elv_file.energies_eV, np.array(elv_file.counts) - np.array(elv_file.dark_currents), '.')
+        plt.plot(elv_file.energies_eV, np.array(elv_file.raw_counts) - np.array(elv_file.dark_currents), '.')
 
-        zlp = ZeroLossPeak(elv_file.energies_eV, np.array(elv_file.counts) - np.array(elv_file.dark_currents))
+        zlp = ZeroLossPeak(elv_file.energies_eV, np.array(elv_file.raw_counts) - np.array(elv_file.dark_currents))
         zlp.compute_statistics()
         zlp.compute_fwhm()
         energy_min_eV = zlp.energies_eV[zlp.roi_indices[0]]
@@ -131,5 +133,9 @@ if __name__ == '__main__':
         plt.axhline(zlp.background, color='b')
 
         plt.xlim(-5, 5)
+
+        plt.figure()
+
+        plt.plot(elv_file.energies_eV, elv_file.gain_corrections)
 
     plt.show()

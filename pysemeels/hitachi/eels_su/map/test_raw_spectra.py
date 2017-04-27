@@ -3,11 +3,11 @@
 
 """
 .. py:currentmodule:: pysemeels.hitachi.eels_su.map.test_raw_spectra
-   :synopsis: Tests for the module :py:mod:`pysemeels.hitachi.eels_su.map.raw_spectra`
+   :synopsis: Tests for the module :py:mod:`pysemeels.hitachi.eels_su.map.spectra`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests for the module :py:mod:`pysemeels.hitachi.eels_su.map.raw_spectra`.
+Tests for the module :py:mod:`pysemeels.hitachi.eels_su.map.spectra`.
 """
 
 ###############################################################################
@@ -43,7 +43,7 @@ from pysemeels.hitachi.eels_su.map.raw_spectra import RawSpectra
 
 class TestSimulationData(unittest.TestCase):
     """
-    TestCase class for the module `pysemeels.hitachi.eels_su.map.raw_spectra`.
+    TestCase class for the module `pysemeels.hitachi.eels_su.map.spectra`.
     """
 
     def setUp(self):

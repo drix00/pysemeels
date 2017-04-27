@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: pysemeels.hitachi.eels_su.map.raw_spectra
+.. py:currentmodule:: pysemeels.hitachi.eels_su.map.spectra
    :synopsis: Read raw spectra from a map.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>

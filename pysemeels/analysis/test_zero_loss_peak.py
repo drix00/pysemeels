@@ -84,7 +84,7 @@ class TestZeroLossPeak(unittest.TestCase):
             elv_file = ElvFile()
             elv_file.read(elv_text_file)
 
-            zero_lost_peak = ZeroLossPeak(elv_file.energies_eV, elv_file.counts)
+            zero_lost_peak = ZeroLossPeak(elv_file.energies_eV, elv_file.raw_counts)
             zero_lost_peak.find_position()
             self.assertAlmostEqual(0.05, zero_lost_peak.position_eV)
 
@@ -99,7 +99,7 @@ class TestZeroLossPeak(unittest.TestCase):
             elv_file = ElvFile()
             elv_file.read(elv_text_file)
 
-            zero_lost_peak = ZeroLossPeak(elv_file.energies_eV, elv_file.counts)
+            zero_lost_peak = ZeroLossPeak(elv_file.energies_eV, elv_file.raw_counts)
             zero_lost_peak.compute_fwhm()
             self.assertAlmostEqual(0.57999999999999996, zero_lost_peak.fwhm_eV)
             self.assertAlmostEqual(1.3700, zero_lost_peak.fwtm_eV)
@@ -116,7 +116,7 @@ class TestZeroLossPeak(unittest.TestCase):
             elv_file = ElvFile()
             elv_file.read(elv_text_file)
 
-            zero_lost_peak = ZeroLossPeak(elv_file.energies_eV, elv_file.counts)
+            zero_lost_peak = ZeroLossPeak(elv_file.energies_eV, elv_file.raw_counts)
             zero_lost_peak.compute_statistics()
             self.assertAlmostEqual(1042790, zero_lost_peak.number_counts)
             self.assertAlmostEqual(-4.16, zero_lost_peak.minimum_eV)

@@ -28,6 +28,7 @@ Python scripts to analyze SEM EELS spectrum.
 
 # Standard library modules.
 import os.path
+import logging
 
 # Third party modules.
 
@@ -41,10 +42,12 @@ __email__ = 'hendrix.demers@mail.mcgill.ca'
 __version__ = '0.1.0'
 
 
-def get_current_module_path(modulePath, relativePath=""):
-    basepath = os.path.dirname(modulePath)
+def get_current_module_path(module_path, relative_path=""):
+    base_path = os.path.dirname(module_path)
+    logging.debug(base_path)
 
-    filepath = os.path.join(basepath, relativePath)
-    filepath = os.path.normpath(filepath)
+    file_path = os.path.join(base_path, relative_path)
+    logging.debug(file_path)
+    file_path = os.path.normpath(file_path)
 
-    return filepath
+    return file_path
