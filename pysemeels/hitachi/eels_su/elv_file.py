@@ -48,8 +48,7 @@ class SpectrumData():
 
     @property
     def counts(self):
-        corrected_counts = (np.array(self.raw_counts) - np.array(self.dark_currents)) / np.array(
-            self.gain_corrections)
+        corrected_counts = (np.array(self.raw_counts) - np.array(self.dark_currents)) / np.array(self.gain_corrections)
         return corrected_counts
 
 
