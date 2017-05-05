@@ -33,6 +33,7 @@ import csv
 import numpy as np
 
 # Local modules.
+import pySpectrumFileFormat.emmff.emsa as emsa
 
 # Project modules.
 
@@ -178,12 +179,36 @@ class ElvFile():
 
         return spectrum_data
 
-    def export_csv(self, file_path):
+    def export_csv_row(self, file_path):
         with open(file_path, 'w', newline="\n") as csv_file:
             writer = csv.writer(csv_file)
 
             row = [count for count in self.raw_counts]
             writer.writerow(row)
+
+    def export_msa(self, file_path):
+        spectrum = emsa.Emsa()
+        spectrum.xdata = self.energies_eV
+        spectrum.ydata = self.counts
+
+        spectrum.header.title = ''
+        spectrum.header.date = self.date
+        spectrum.header.time = self.time
+        spectrum.header.owner = ''
+        spectrum.header.npoints = len(self.energies_eV)
+        spectrum.header.ncolumns = 1
+        spectrum.header.xunits = 'eV'
+        spectrum.header.yunits = 'Counts'
+        spectrum.header.datatype = emsa.DATA_TYPE_Y
+        # spectrum.header.xperchan = "{:.4f}".format((self.energies_eV[-1] - self.energies_eV[0]) / float(len(self.energies_eV)))
+        spectrum.header.xperchan = "{}".format((self.energies_eV[-1] - self.energies_eV[0]) / float(len(self.energies_eV)))
+        spectrum.header.offset = self.energies_eV[0]
+        spectrum.header.signal = emsa.SIGNAL_TYPE_ELS
+
+        spectrum.validate()
+
+        with open(file_path, 'w', newline="\n") as msa_file:
+            emsa.write(spectrum, msa_file)
 
     @property
     def counts(self):
@@ -257,7 +282,7 @@ def plot_spectrum():
 
 
 def print_window_info():
-    for energy_window_eV in elv_file.energy_windows_eV:
+    for energy_window_eV in ElvFile.energy_windows_eV:
         elv_file_path = r"D:\Dropbox\hdemers\professional\results\experiments\2017\su9000\eels\2017\System_baseline_march2017/30kV_{:d}eV.elv".format(energy_window_eV)
 
         with open(elv_file_path, 'r') as elv_text_file:
@@ -274,8 +299,24 @@ def print_window_info():
                 min_index, max_index = elv_file.segments_channel[segment_name]
                 min_energy_eV = elv_file.energies_eV[min_index]
                 max_energy_eV = elv_file.energies_eV[max_index]
-                print("Segment {:s}: {:7.2f} to {:7.2f} eV".format(segment_name, min_energy_eV, max_energy_eV))
+                middle_energy_eV = (max_energy_eV - min_energy_eV) / 2.0 + min_energy_eV
+                print("Segment {:s}: {:7.2f} to {:7.2f} eV middle {:7.2f} eV".format(segment_name, min_energy_eV, max_energy_eV, middle_energy_eV))
+
+def export_msa():
+    from pysemeels import get_current_module_path
+    elv_file_path = get_current_module_path(__file__, r"D:\Dropbox\hdemers\professional\results\experiments\2017\su9000\eels\2017\System_baseline_march2017/30kV_7eV.elv")
+
+    with open(elv_file_path, 'r') as elv_text_file:
+        elv_file = ElvFile()
+        elv_file.read(elv_text_file)
+
+        msa_file_path = get_current_module_path(__file__, r"D:\Dropbox\hdemers\professional\results\experiments\2017\su9000\eels\2017\System_baseline_march2017/30kV_7eV.msa")
+        elv_file.export_msa(msa_file_path)
+
+        for channel_id in range(len(elv_file.energies_eV)-1):
+            print(elv_file.energies_eV[channel_id+1] - elv_file.energies_eV[channel_id])
 
 if __name__ == '__main__':
-    plot_spectrum()
-    #print_window_info()
+    # plot_spectrum()
+    print_window_info()
+    # export_msa()
