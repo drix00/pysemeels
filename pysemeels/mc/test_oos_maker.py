@@ -30,6 +30,7 @@ Tests for the module :py:mod:`pysemeels.mc.oos_maker`.
 import unittest
 
 # Third party modules.
+from nose.tools import nottest
 
 # Local modules.
 
@@ -68,6 +69,7 @@ class TestOosMaker(unittest.TestCase):
         # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
+    @nottest
     def test_make_oos(self):
         """
         Test the method to make the oos data.
