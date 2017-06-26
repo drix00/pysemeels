@@ -98,3 +98,15 @@ class BatchGenerateSpectra(object):
                 plt.close()
 
             pp.close()
+
+
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
+        print(path)
+        batch_generate_windows_figure = BatchGenerateSpectra(path)
+
+        batch_generate_windows_figure.generate()
+    else:
+        print("Usage: python batch_generate_spectra.py path")

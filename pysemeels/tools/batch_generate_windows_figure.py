@@ -68,3 +68,14 @@ class BatchGenerateWindowsFigure(object):
         else:
             for file_name in os.listdir(self.path):
                 logging.info(file_name)
+
+if __name__ == '__main__':
+    import sys
+    if len(sys.argv) > 1:
+        path = sys.argv[1]
+        print(path)
+        batch_generate_windows_figure = BatchGenerateWindowsFigure(path)
+
+        batch_generate_windows_figure.generate()
+    else:
+        print("Usage: python batch_generate_windows_figure.py path")
