@@ -53,9 +53,9 @@ class TestSimulationData(unittest.TestCase):
 
         unittest.TestCase.setUp(self)
 
-        self.ana_file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.elv")
+        self.elv_file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.elv")
 
-        if not os.path.isfile(self.ana_file_path):
+        if not os.path.isfile(self.elv_file_path):
             raise SkipTest
 
     def tearDown(self):
@@ -78,7 +78,7 @@ class TestSimulationData(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        with open(self.ana_file_path, 'r') as elv_text_file:
+        with open(self.elv_file_path, 'r') as elv_text_file:
             elv_file = ElvFile()
             elv_file.read(elv_text_file)
 
