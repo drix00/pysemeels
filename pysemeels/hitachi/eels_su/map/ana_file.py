@@ -29,20 +29,29 @@ Read elv file.
 # Standard library modules.
 
 # Third party modules.
+import h5py
+import numpy as np
 
 # Local modules.
 
 # Project modules.
 
 # Globals and constants variables.
+
+
 class Spectrum():
     def __init__(self):
         self.energies_eV = []
         self.counts = []
 
+
 class AnaFile():
     def __init__(self):
-        pass
+        self.energies_eV = []
+        self.total_spectra = {}
+
+        self.spectra = {}
+        self.spectrum_id = None
 
     def read(self, file):
         extracting_header_data = True
@@ -60,6 +69,14 @@ class AnaFile():
                 extracting_header_data = self._extract_header_data(extracting_header_data, line)
             else:
                 self._extract_spectra_data(line)
+
+        self.energies_eV = np.array(self.energies_eV)
+
+        total_spectra = np.zeros((len(self.total_spectra), len(self.total_spectra[0])), dtype=float)
+        for spectrum_id in sorted(self.total_spectra.keys()):
+            total_spectra[spectrum_id, :] = self.total_spectra[spectrum_id]
+
+        self.total_spectra = total_spectra
 
     def _extract_spectra_data(self, line):
         items = line.split(',')
@@ -83,7 +100,6 @@ class AnaFile():
 
         if line.startswith("raw data"):
             self.spectrum_id += 1
-
 
     def _extract_header_data(self, extracting_header_data, line):
         try:
@@ -169,6 +185,20 @@ class AnaFile():
                 pass
 
         return extracting_header_data
+
+    def save_hdf5(self, hdf5_file_path):
+        with h5py.File(hdf5_file_path, 'w') as hdf5_file:
+            dset = hdf5_file.create_dataset("energy (eV)", data=self.energies_eV)
+
+            dset = hdf5_file.create_dataset("total spectra", data=self.total_spectra)
+
+            # self.spectra = {}
+
+    def read_hdf5(self, hdf5_file_path):
+        with h5py.File(hdf5_file_path, 'r') as hdf5_file:
+            self.energies_eV = hdf5_file["energy (eV)"][:]
+
+            self.total_spectra = hdf5_file["total spectra"][:]
 
 
 if __name__ == '__main__':
