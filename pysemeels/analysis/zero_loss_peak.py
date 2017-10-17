@@ -31,6 +31,7 @@ Analyze the zero loss peak from an EELS spectrum.
 # Third party modules.
 import numpy as np
 import scipy.stats
+from lmfit.models import VoigtModel
 
 # Local modules.
 
@@ -38,13 +39,29 @@ import scipy.stats
 
 # Globals and constants variables.
 
+
 class ZeroLossPeak():
     def __init__(self, energies_eV, intensities):
         self.energies_eV = np.array(energies_eV)
         self.intensities = np.array(intensities)
 
-        self.position_eV = None
-        self.fwhm_eV = None
+        self.background = 0.0
+        self.position_eV = 0.0
+        self.fwhm_eV = 0.0
+        self.fwtm_eV = 0.0
+        self.fwfm_eV = 0.0
+        self.maximum = 0.0
+
+        self.fit_results = None
+        self.fit_results_position_eV = 0.0
+        self.fit_results_fwhm_eV = 0.0
+        self.fit_results_sigma_eV = 0.0
+        self.fit_results_gamma_eV = 0.0
+        self.fit_results_area = 0.0
+        self.fit_results_height = 0.0
+
+        self.max_intensity_index = 0
+        self.roi_indices = (0, 0)
 
     def find_position(self):
         self.max_intensity_index = np.argmax(self.intensities)
@@ -103,6 +120,24 @@ class ZeroLossPeak():
         self.std_eV = np.sqrt(describe.variance)
         self.skewness = describe.skewness
         self.kurtosis = describe.kurtosis
+
+    def fit(self):
+        x = self.energies_eV
+        y = self.intensities
+
+        model = VoigtModel()
+
+        init_parameters = model.guess(y ,x=x)
+        self.fit_results = model.fit(y, init_parameters, x=x)
+
+        values = self.fit_results.params.valuesdict()
+
+        self.fit_results_position_eV = values['center']
+        self.fit_results_fwhm_eV = values['fwhm']
+        self.fit_results_sigma_eV = values['sigma']
+        self.fit_results_gamma_eV = values['gamma']
+        self.fit_results_area = values['amplitude']
+        self.fit_results_height = values['height']
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
