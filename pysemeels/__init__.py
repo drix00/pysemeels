@@ -36,9 +36,18 @@ import logging
 # Project modules.
 
 # Globals and constants variables.
-__author__ = """Hendrix Demers"""
-__email__ = 'hendrix.demers@mail.mcgill.ca'
-__version__ = '0.1.0'
+#: Maintainer of the project.
+author = """Hendrix Demers"""
+#: Email of the maintainer of the project.
+email = 'hendrix.demers@mail.mcgill.ca'
+version = '0.1.0'
+"""
+Version of the project.
+
+.. note::
+    The version of the project should be changed here.
+
+"""
 
 
 def get_current_module_path(module_filepath, relative_path=""):
