@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.test_hdf5_file_labels
-   :synopsis: Tests for the module :py:mod:`pysemeels.tools.hdf5_file_labels`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

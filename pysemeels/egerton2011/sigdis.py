@@ -3,16 +3,14 @@
 
 """
 .. py:currentmodule:: pysemeels.egerton2011.sigdis
-   :synopsis: Calculates cross sections for bulk atomic displacement or surface sputtering for both SPHERICAL and 
-   PLANAR escape potentials.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Calculates cross sections for bulk atomic displacement or surface sputtering for both SPHERICAL and 
+Calculates cross sections for bulk atomic displacement or surface sputtering for both SPHERICAL and
 PLANAR escape potentials.
 
-sigdis.m calculates cross sections for bulk atomic displacement or 
-surface sputtering for both SPHERICAL and PLANAR escape potentials, 
+sigdis.m calculates cross sections for bulk atomic displacement or
+surface sputtering for both SPHERICAL and PLANAR escape potentials,
 based on an analytical formula (Banhart, 1999 Eq.5) that uses the
 McKinley-Feshbach (1948) approximation, valid for Z < 28
 For Z>28, the Rutherford value should be used as a better approximation.

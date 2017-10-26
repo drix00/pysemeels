@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.hitachi.eels_su.map.test_raw_spectra
-   :synopsis: Tests for the module :py:mod:`pysemeels.hitachi.eels_su.map.spectra`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.mc.test_oos_maker
-   :synopsis: Tests for the module :py:mod:`pysemeels.mc.oos_maker`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

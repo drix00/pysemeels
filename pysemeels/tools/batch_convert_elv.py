@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.batch_convert_elv
-   :synopsis: Convert elv file in batch mode.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

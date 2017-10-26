@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.test_generate_windows_figure
-   :synopsis: Tests for the module :py:mod:`pysemeels.tools.generate_windows_figure`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

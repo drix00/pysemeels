@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.__init__
-   :synopsis: Tools packages for the pysemeels project.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

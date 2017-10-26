@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.generate_windows_figure
-   :synopsis: Generate spectra figure with position of the 3 windows from spectrum data in EFSTEM folder.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

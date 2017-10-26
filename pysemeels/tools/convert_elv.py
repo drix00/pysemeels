@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.convert_elv
-   :synopsis: Convert an elv file into msa and/or hdf5 file.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

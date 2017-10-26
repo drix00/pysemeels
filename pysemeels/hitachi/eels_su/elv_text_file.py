@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: elv_text_file
-   :synopsis: Read elv text file.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

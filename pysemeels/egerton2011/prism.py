@@ -3,14 +3,13 @@
 
 """
 .. py:currentmodule:: pysemeels.egerton2011.prism
-   :synopsis: First order focusing based on Eq 2.8, 2.9, 2.10, and 2.11 in Egerton (2011) book.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
 First order focusing based on Eq 2.8, 2.9, 2.10, and 2.11 in Egerton (2011) book.
 
 Details in: EELS in the Electron Microscope, 3rd edition, Springer 2011.
-Corrections (28Sep2011): convert psi to psid (in degrees) at line 76, 
+Corrections (28Sep2011): convert psi to psid (in degrees) at line 76,
 and add line 97:  m11(3,4) = phi.*R.*3.14159265./180.
 
 """

@@ -29,6 +29,11 @@ Fix Bugs
 Look through the GitHub issues for bugs. Anything tagged with "bug"
 and "help wanted" is open to whoever wants to implement it.
 
+Fix ToDo
+~~~~~~~~
+
+Also check the todo list for :ref:`Todo`.
+
 Implement Features
 ~~~~~~~~~~~~~~~~~~
 

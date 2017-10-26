@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.analysis
-   :synopsis: Package for the analysis of EELS spectrum and map.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

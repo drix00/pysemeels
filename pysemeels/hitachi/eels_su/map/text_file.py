@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: text_file
-   :synopsis: Read text file in map folder.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule::
-   :synopsis: Tests for the module :py:mod:`pysemeels.hitachi.eels_su.csv_file`
+.. py:currentmodule:: pysemeels.hitachi.eels_su.test_csv_file
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

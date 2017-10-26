@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.egerton2011.lenzplus
-   :synopsis: Calculates Lenz x-secns for elastic and inelastic scattering.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

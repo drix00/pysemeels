@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.egerton2011.test_lenzplus
-   :synopsis: Tests for the module :py:mod:`pysemeels.egerton2011.lenzplus`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
@@ -69,7 +68,7 @@ class TestSigAdf(unittest.TestCase):
     def testWebsiteExample(self):
         """
         Test from value given in the Egerton (2011) book website.
-        
+
         .. todo:: Check why some values on the website are wrong.
         """
         result1, result2, result3_wo_broadening, result3_w_broadening = lenz_plus(100, 40, 6, 10, 1.5)

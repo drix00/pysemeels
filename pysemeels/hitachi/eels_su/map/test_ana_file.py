@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.hitachi.eels_su.map.test_ana_file
-   :synopsis: Tests for the module :py:mod:`pysemeels.hitachi.eels_su.map.ana_file`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

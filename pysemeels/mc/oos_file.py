@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.mc.oos_file
-   :synopsis: Read and write oos file genereated by oos_maker code.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

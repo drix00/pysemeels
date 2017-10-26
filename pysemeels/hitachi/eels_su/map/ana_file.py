@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: ana_file
-   :synopsis: Read elv file.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

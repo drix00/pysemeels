@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.batch_generate_spectra
-   :synopsis: Generate spectra figure from spectrum imaging data in batch.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.egerton2011.test_drude
-   :synopsis: Tests for the module :py:mod:`pysemeels.egerton2011.drude`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

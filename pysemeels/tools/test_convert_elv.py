@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.test_convert_elv
-   :synopsis: Tests for the module :py:mod:`pysemeels.tools.convert_elv`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

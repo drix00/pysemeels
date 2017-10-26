@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.egerton2011.test_spec_gen
-   :synopsis: Tests for the module :py:mod:`pysemeels.egerton2011.spec_gen`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

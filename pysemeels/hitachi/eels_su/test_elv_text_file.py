@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.hitachi.eels_su.test_elv_text_file
-   :synopsis: Tests for the module :py:mod:`ElvTextFile`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.egerton2011.drude
-   :synopsis: Simulation of a low-loss spectrum using Drude model.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
@@ -38,17 +37,18 @@ import numpy as np
 
 # Globals and constants variables.
 
+
 def drude(ep, ew, eb, epc, e0, beta, nn, tnm):
     """
-    Given the plasmon energy (ep), plasmon FWHM (ew) and binding energy (eb), 
+    Given the plasmon energy (ep), plasmon FWHM (ew) and binding energy (eb),
     this program generates:
     EPS1, EPS2 from modified Eq. (3.40), ELF=Im(-1/EPS) from Eq. (3.42),
     single scattering from Eq. (4.26) and SRFINT from Eq. (4.31)
-    The output is e,ssd into the file Drude.ssd (for use in Flog etc.) 
+    The output is e,ssd into the file Drude.ssd (for use in Flog etc.)
     and e,eps1 ,eps2 into Drude.eps (for use in Kroeger etc.)
-     Gives probabilities relative to zero-loss integral (I0 = 1) per eV
-     Details in R.F.Egerton: EELS in the Electron Microscope, 3rd edition, Springer 2011)
-     Version 10.11.26
+    Gives probabilities relative to zero-loss integral (I0 = 1) per eV
+    Details in R.F.Egerton: EELS in the Electron Microscope, 3rd edition, Springer 2011)
+    Version 10.11.26
     """
 
     logging.info('plasmon energy (eV): %g', ep)
@@ -104,6 +104,7 @@ def drude(ep, ew, eb, epc, e0, beta, nn, tnm):
 
     return e, eps1, eps2, elf, srfelf, rereps, ssd, volint, srfint, Ps, Pv, lam, lamfe
 
+
 def plot_figure():
     energies_eV, eps1, eps2, im_eps, im4_eps, re_eps, probabilities_total, probabilities_volume, probabilities_surface, ps, pv, mfp_volume_nm, mfp_free_nm = drude(
         15, 3, 0, 0.1, 200, 5, 500, 50)
@@ -131,6 +132,7 @@ def plot_figure():
     plt.plot(energies_eV, probabilities_total, 'b', label='total')
     plt.xlabel('Energy Loss [eV]')
     plt.ylabel('dP/dE [/eV]')
+
 
 if __name__ == '__main__':
     import matplotlib.pyplot as plt

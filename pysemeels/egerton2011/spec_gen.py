@@ -3,12 +3,10 @@
 
 """
 .. py:currentmodule:: pysemeels.egerton2011.spec_gen
-   :synopsis: Generates a plural-scattering distribution from a gaussian-shaped ssd of width wp, peaked at ep, 
-   with background and poisson shot noise.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Generates a plural-scattering distribution from a gaussian-shaped ssd of width wp, peaked at ep, with background 
+Generates a plural-scattering distribution from a gaussian-shaped ssd of width wp, peaked at ep, with background
 and poisson shot noise.
 
 Details in R.F.Egerton: EELS in the Electron Microscope, 3rd edition, Springer 2011)

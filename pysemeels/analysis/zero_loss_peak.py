@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.analysis.zero_loss_peak
-   :synopsis: Analyze the zero loss peak from an EELS spectrum.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

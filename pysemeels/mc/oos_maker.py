@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.mc.oos_maker
-   :synopsis: Make the oos input file for LEEPS Monte Carlo program.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
@@ -66,4 +65,4 @@ class OosMaker(object):
     def compute_oos(self):
         dFn = 0
 
-        
+

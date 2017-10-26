@@ -3,17 +3,15 @@
 
 """
 .. py:currentmodule:: pysemeels.egerton2011.sigadf
-   :synopsis: Calculates high-angle cross sections for high-angle elastic scattering, as utilized in an annular 
-   dark-field (ADF) detector.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Calculates high-angle cross sections for high-angle elastic scattering, as utilized in an annular dark-field 
+Calculates high-angle cross sections for high-angle elastic scattering, as utilized in an annular dark-field
 (ADF) detector.
 
 based on an analytical formula (Banhart, 1999 Eq.5) using the McKinley-Feshbach (1948) approximation, valid for Z < 28
- 
-Details in R.F.Egerton: EELS in the Electron Microscope, 3rd edition,  with correction made (8 Sept. 2011) 
+
+Details in R.F.Egerton: EELS in the Electron Microscope, 3rd edition,  with correction made (8 Sept. 2011)
 to Eq.(3.12f) and  to Mott x-secn.
 
 """

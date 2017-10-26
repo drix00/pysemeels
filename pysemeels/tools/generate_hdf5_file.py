@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.generate_hdf5_file
-   :synopsis: Generate HDF5 file from Hitachi EELS data.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

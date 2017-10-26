@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.analysis.test_zero_loss_peak
-   :synopsis: Tests for the module :py:mod:`pysemeels.analysis.zero_loss_peak`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
@@ -72,7 +71,7 @@ class TestZeroLossPeak(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
     def test_find_position(self):
@@ -88,7 +87,7 @@ class TestZeroLossPeak(unittest.TestCase):
             zero_lost_peak.find_position()
             self.assertAlmostEqual(0.05, zero_lost_peak.position_eV)
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
 
     def test_compute_fwhm(self):
         """
@@ -105,7 +104,7 @@ class TestZeroLossPeak(unittest.TestCase):
             self.assertAlmostEqual(1.3700, zero_lost_peak.fwtm_eV)
             self.assertAlmostEqual(1.74, zero_lost_peak.fwfm_eV)
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
 
     def test_compute_statistics(self):
         """
@@ -127,10 +126,9 @@ class TestZeroLossPeak(unittest.TestCase):
             self.assertAlmostEqual(-0.07548493790601353, zero_lost_peak.skewness)
             self.assertAlmostEqual(1.5175832076107003, zero_lost_peak.kurtosis)
 
-            # self.fail("Test if the testcase is working.")
+         # self.fail("Test if the testcase is working.")
 
 
 if __name__ == '__main__':  # pragma: no cover
     import nose
-
     nose.runmodule()

@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.test_generate_hdf5_file
-   :synopsis: Tests for the module :py:mod:`pysemeels.tools.generate_hdf5_file`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

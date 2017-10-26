@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: xrayspectrummodeling.map.test_simulation_data
-   :synopsis: Tests for the module :py:mod:`xrayspectrummodeling.map.simulation_data as simulation_data`
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

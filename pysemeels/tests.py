@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tests
-   :synopsis: Regression testing for the project.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
@@ -37,6 +36,9 @@ Regression testing for the project.
 # Globals and constants variables.
 
 if __name__ == "__main__":  # pragma: no cover
+    """
+    Run all tests in the projects.
+    """
     import logging
     logging.getLogger().setLevel(logging.INFO)
 

@@ -3,7 +3,6 @@
 
 """
 .. py:currentmodule:: pysemeels.tools.hdf5_file_labels
-   :synopsis: Labels used in the HDF5 file.
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 

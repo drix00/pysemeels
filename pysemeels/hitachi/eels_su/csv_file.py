@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule::
-   :synopsis: Read csv file exported by EELS-SU.
+.. py:currentmodule:: pysemeels.hitachi.eels_su.csv_file
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
