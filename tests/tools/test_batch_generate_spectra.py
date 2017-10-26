@@ -53,9 +53,9 @@ class TestBatchGenerateSpectra(unittest.TestCase):
 
         unittest.TestCase.setUp(self)
 
-        self.path = get_current_module_path(__file__, r"../../test_data\hitachi\eels_su\vacuum_linescan_07eV_i50_52pts")
+        self.path = get_current_module_path(__file__, r"../../test_data/hitachi/eels_su/vacuum_linescan_07eV_i50_52pts")
 
-        self.figures_file_path = get_current_module_path(__file__, r"../../test_data\hitachi\eels_su\vacuum_linescan_07eV_i50_52pts\vacuum_linescan_07eV_i50_52pts-all_spectra_3.pdf")
+        self.figures_file_path = get_current_module_path(__file__, r"../../test_data/hitachi/eels_su/vacuum_linescan_07eV_i50_52pts/vacuum_linescan_07eV_i50_52pts-all_spectra_3.pdf")
 
         if not os.path.isdir(self.path):  # pragma: no cover
             raise SkipTest

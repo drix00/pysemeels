@@ -82,7 +82,7 @@ class BatchGenerateSpectra(object):
 
             pp = PdfPages(pdf_file_path)
 
-            for spectrum_id in sorted(ana_file.total_spectra):
+            for spectrum_id in range(ana_file.total_spectra.shape[0]):
                 plt.figure()
 
                 plt.title(spectrum_id+1)
