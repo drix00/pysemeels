@@ -10,24 +10,23 @@ Subpackages
     pysemeels.egerton2011
     pysemeels.hitachi
     pysemeels.mc
-    pysemeels.tests
     pysemeels.tools
 
 Submodules
 ----------
 
-pysemeels\.pysemeels module
----------------------------
+pysemeels\.project module
+-------------------------
 
-.. automodule:: pysemeels.pysemeels
+.. automodule:: pysemeels.project
     :members:
     :undoc-members:
     :show-inheritance:
 
-pysemeels\.tests module
------------------------
+pysemeels\.pysemeels module
+---------------------------
 
-.. automodule:: pysemeels.tests
+.. automodule:: pysemeels.pysemeels
     :members:
     :undoc-members:
     :show-inheritance:

@@ -43,38 +43,6 @@ pysemeels\.hitachi\.eels\_su\.elv\_text\_file module
     :undoc-members:
     :show-inheritance:
 
-pysemeels\.hitachi\.eels\_su\.test\_ana\_file module
-----------------------------------------------------
-
-.. automodule:: pysemeels.hitachi.eels_su.test_ana_file
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-pysemeels\.hitachi\.eels\_su\.test\_csv\_file module
-----------------------------------------------------
-
-.. automodule:: pysemeels.hitachi.eels_su.test_csv_file
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-pysemeels\.hitachi\.eels\_su\.test\_elv\_file module
-----------------------------------------------------
-
-.. automodule:: pysemeels.hitachi.eels_su.test_elv_file
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-pysemeels\.hitachi\.eels\_su\.test\_elv\_text\_file module
-----------------------------------------------------------
-
-.. automodule:: pysemeels.hitachi.eels_su.test_elv_text_file
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------

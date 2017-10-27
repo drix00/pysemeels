@@ -61,7 +61,7 @@ To generate or update the API documentation:
 .. code-block:: console
 
     $ cd docs
-    $ sphinx-apidoc -o api -T -f ../pysemeels
+    $ sphinx-apidoc -o api -T ../pysemeels
     $ make html
 
 .. _Github repo: https://github.com/drix00/pysemeels

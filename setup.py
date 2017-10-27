@@ -11,6 +11,7 @@ with open('HISTORY.rst') as history_file:
 
 requirements = [
     "numpy",
+    "h5py",
 ]
 
 test_requirements = [
