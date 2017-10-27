@@ -32,7 +32,7 @@ and "help wanted" is open to whoever wants to implement it.
 Fix ToDo
 ~~~~~~~~
 
-Also check the todo list for :ref:`Todo`.
+Also check the todo list for :ref:`todo:Todo`.
 
 Implement Features
 ~~~~~~~~~~~~~~~~~~
