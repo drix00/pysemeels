@@ -6,7 +6,7 @@
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Analyze the zero loss peak from an EELS linescan.
+Analyze the zero loss peak from an EELS spectrum.
 """
 
 ###############################################################################

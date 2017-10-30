@@ -10,7 +10,7 @@ Container of EELS data.
 
 The EELS data are:
 
-* raw EELS linescan
+* raw EELS spectrum
 * spectral imaging
 
     * point

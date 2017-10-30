@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: pysemeels.test_eftem
+.. py:currentmodule:: tests.test_eftem
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests for the module :py:mod:`pysemeels.linescan`.
+Tests for the module :py:mod:`pysemeels.eftem`.
 """
 
 ###############################################################################
@@ -43,7 +43,7 @@ from pysemeels.eftem import Eftem
 
 class TestEftem(unittest.TestCase):
     """
-    TestCase class for the module `pysemeels.linescan`.
+    TestCase class for the module `pysemeels.eftem`.
     """
 
     def setUp(self):

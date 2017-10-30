@@ -6,7 +6,7 @@
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Generate spectra figure with position of the 3 windows from linescan data in EFSTEM folder.
+Generate spectra figure with position of the 3 windows from spectrum data in EFSTEM folder.
 """
 
 ###############################################################################

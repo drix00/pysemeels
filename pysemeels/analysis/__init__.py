@@ -6,7 +6,7 @@
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Package for the analysis of EELS linescan and map.
+Package for the analysis of EELS line scan and map.
 """
 
 ###############################################################################

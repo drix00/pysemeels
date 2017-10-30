@@ -23,7 +23,7 @@ packages = find_packages()
 setup(
     name='pysemeels',
     version='0.1.0',
-    description="Python scripts to analyze SEM EELS linescan",
+    description="Python scripts to analyze SEM EELS data",
     long_description=readme + '\n\n' + history,
     author="Hendrix Demers",
     author_email='hendrix.demers@mail.mcgill.ca',
