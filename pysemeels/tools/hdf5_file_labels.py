@@ -71,7 +71,7 @@ HDF5_DET_MAP_ALIGNMENT_Y = "det_map_alignment_y"
 
 HDF5_MAGNIFICATION = "magnification"
 
-HDF5_SPECTRUM = "spectrum"
+HDF5_SPECTRUM = "linescan"
 HDF5_SPECTRUM_ENERGIES_eV = "energies (eV)"
 HDF5_SPECTRUM_COUNTS = "counts"
 HDF5_SPECTRUM_RAW_COUNTS = "raw counts"
@@ -79,6 +79,6 @@ HDF5_SPECTRUM_GAIN_CORRECTIONS = "gain corrections"
 HDF5_SPECTRUM_DARK_CURRENTS = "dark currents"
 
 HDF5_SPECTRUM_CHANNEL = "channel"
-HDF5_SPECTRUM_DATA_TYPE = "spectrum data type"
+HDF5_SPECTRUM_DATA_TYPE = "linescan data type"
 HDF5_SPECTRUM_CHANNELS = "channels"
-HDF5_SPECTRUM_DATA_TYPES = "spectrum data types"
+HDF5_SPECTRUM_DATA_TYPES = "linescan data types"

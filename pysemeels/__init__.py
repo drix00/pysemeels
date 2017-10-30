@@ -6,7 +6,7 @@
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Python scripts to analyze SEM EELS spectrum.
+Python scripts to analyze SEM EELS data.
 """
 
 ###############################################################################

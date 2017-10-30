@@ -10,7 +10,7 @@ Container of EELS data.
 
 The EELS data are:
 
-* raw EELS spectrum
+* raw EELS linescan
 * spectral imaging
 
     * point
@@ -45,6 +45,10 @@ The EELS data are:
 
 # Project modules.
 from pysemeels.raw_spectrum import RawSpectrum
+from pysemeels.si.point import Point
+from pysemeels.si.linescan import Linescan
+from pysemeels.si.map import Map
+from pysemeels.eftem import Eftem
 
 # Globals and constants variables.
 HDF5_ATTRIBUTE_AUTHOR = "author"
@@ -73,9 +77,37 @@ class Project(object):
             self.author = project_group.attrs[HDF5_ATTRIBUTE_AUTHOR]
 
             if HDF5_GROUP_SPECTRA in project_group:
-                for spectrum_name, spectrum_group in project_group[HDF5_GROUP_SPECTRA].iteritems():
-                    spectrum = RawSpectrum(spectrum_name)
-                    spectrum.read_hdf5(spectrum_group)
+                group = project_group[HDF5_GROUP_SPECTRA]
+                for name in group.keys():
+                    data = RawSpectrum(name)
+                    data.read_hdf5(group)
+
+            if HDF5_GROUP_SPECTRAL_IMAGING in project_group:
+                si_group = project_group[HDF5_GROUP_SPECTRAL_IMAGING]
+                if HDF5_GROUP_POINTS in si_group:
+                    group = si_group[HDF5_GROUP_POINTS]
+                    for name in group.keys():
+                        data = Point(name)
+                        data.read_hdf5(group)
+
+                if HDF5_GROUP_LINE_SCANS in si_group:
+                    group = si_group[HDF5_GROUP_LINE_SCANS]
+                    for name in group.keys():
+                        data = Linescan(name)
+                        data.read_hdf5(group)
+
+                if HDF5_GROUP_MAPS in si_group:
+                    group = si_group[HDF5_GROUP_MAPS]
+                    for name in group.keys():
+                        data = Map(name)
+                        data.read_hdf5(group)
+
+            if HDF5_GROUP_ENERGY_FILTERED_MICROGRAPHS in project_group:
+                group = project_group[HDF5_GROUP_ENERGY_FILTERED_MICROGRAPHS]
+                for name in group.keys():
+                    data = Eftem(name)
+                    data.read_hdf5(group)
+
         else:
             raise ValueError("The parent group does not contain the project")
 

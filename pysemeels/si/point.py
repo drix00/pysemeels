@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: tests.hitachi
+.. py:currentmodule:: pysemeels.si.point
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests for package :py:mod:`pysemeels.hitachi`.
+Spectral imaging point EELS data.
 """
 
 ###############################################################################
@@ -34,3 +34,17 @@ Tests for package :py:mod:`pysemeels.hitachi`.
 # Project modules.
 
 # Globals and constants variables.
+
+
+class Point(object):
+    def __init__(self, name):
+        self.name = name
+
+    def read_hdf5(self, parent_group):
+        if self.name in parent_group:
+            project_group = parent_group[self.name]
+        else:
+            raise ValueError("The parent group does not contain the project")
+
+    def write_hdf5(self, parent_group):
+        project_group = parent_group.require_group(self.name)

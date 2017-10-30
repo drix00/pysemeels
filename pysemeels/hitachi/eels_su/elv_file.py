@@ -199,7 +199,7 @@ class ElvFile():
         spectrum.header.xunits = 'eV'
         spectrum.header.yunits = 'Counts'
         spectrum.header.datatype = emsa.DATA_TYPE_Y
-        # spectrum.header.xperchan = "{:.4f}".format((self.energies_eV[-1] - self.energies_eV[0]) / float(len(self.energies_eV)))
+        # linescan.header.xperchan = "{:.4f}".format((self.energies_eV[-1] - self.energies_eV[0]) / float(len(self.energies_eV)))
         spectrum.header.xperchan = "{}".format((self.energies_eV[-1] - self.energies_eV[0]) / float(len(self.energies_eV)))
         spectrum.header.offset = self.energies_eV[0]
         spectrum.header.signal = emsa.SIGNAL_TYPE_ELS

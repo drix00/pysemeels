@@ -105,7 +105,7 @@ class TestGenerateHdf5File(unittest.TestCase):
             generate_hdf5_file.add_spectrum(self.elv_file_path)
             self.assertTrue("30kV_7eV" in generate_hdf5_file.hdf5_file)
 
-            name_ref = "Nominal spectrum"
+            name_ref = "Nominal linescan"
             generate_hdf5_file.add_spectrum(self.elv_file_path, name=name_ref)
             self.assertTrue(name_ref in generate_hdf5_file.hdf5_file)
 

@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: tests.hitachi
+.. py:currentmodule:: tests.si
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests for package :py:mod:`pysemeels.hitachi`.
+Tests for package :py:mod:`pysemeels.si`.
 """
 
 ###############################################################################

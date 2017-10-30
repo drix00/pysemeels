@@ -6,7 +6,7 @@
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Generate spectra figure from spectrum imaging data in batch.
+Generate spectra figure from linescan imaging data in batch.
 """
 
 ###############################################################################

@@ -36,7 +36,13 @@ import h5py
 
 # Project modules.
 from pysemeels import get_current_module_path
-from pysemeels.project import Project, HDF5_ATTRIBUTE_AUTHOR
+from pysemeels.project import Project, HDF5_ATTRIBUTE_AUTHOR, HDF5_GROUP_SPECTRA, HDF5_GROUP_SPECTRAL_IMAGING, \
+    HDF5_GROUP_ENERGY_FILTERED_MICROGRAPHS
+from pysemeels.raw_spectrum import RawSpectrum
+from pysemeels.si.point import Point
+from pysemeels.si.linescan import Linescan
+from pysemeels.si.map import Map
+from pysemeels.eftem import Eftem
 
 # Globals and constants variables.
 
@@ -55,6 +61,21 @@ class TestProject(unittest.TestCase):
 
         self.name_ref = "TestProject"
         self.project = Project(self.name_ref)
+
+        self.project.spectra.append(RawSpectrum("RawSpectrum_1"))
+        self.project.spectra.append(RawSpectrum("RawSpectrum_2"))
+        self.project.spectra.append(RawSpectrum("RawSpectrum_3"))
+
+        self.project.si_points.append(Point("Point_1"))
+        self.project.si_points.append(Point("Point_2"))
+        self.project.si_points.append(Point("Point_3"))
+
+        self.project.si_line_scans.append(Linescan("Linescan_1"))
+        self.project.si_line_scans.append(Linescan("Linescan_2"))
+
+        self.project.si_maps.append(Map("Map_3"))
+
+        self.project.energy_filtered_micrographs.append(Eftem("Eftem_1"))
 
         self.test_data_path = get_current_module_path(__file__, '../test_data')
 
@@ -101,9 +122,13 @@ class TestProject(unittest.TestCase):
             root_group = hdf5_file[self.name_ref]
             self.assertEqual(author_ref, root_group.attrs[HDF5_ATTRIBUTE_AUTHOR])
 
+            self.assertTrue(HDF5_GROUP_SPECTRA in root_group)
+            self.assertTrue(HDF5_GROUP_SPECTRAL_IMAGING in root_group)
+            self.assertTrue(HDF5_GROUP_ENERGY_FILTERED_MICROGRAPHS in root_group)
+
         # self.fail("Test if the testcase is working.")
 
-        # os.remove(filepath)
+        os.remove(filepath)
 
     def test_read_hdf5(self):
         """
@@ -116,6 +141,12 @@ class TestProject(unittest.TestCase):
 
             author_ref = "Hendrix Demers"
             self.assertEqual(author_ref, self.project.author)
+
+            self.assertEqual(3, len(self.project.spectra))
+            self.assertEqual(3, len(self.project.si_points))
+            self.assertEqual(2, len(self.project.si_line_scans))
+            self.assertEqual(1, len(self.project.si_maps))
+            self.assertEqual(1, len(self.project.energy_filtered_micrographs))
 
         # self.fail("Test if the testcase is working.")
 

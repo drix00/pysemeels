@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: pysemeels.test_raw_spectrum
+.. py:currentmodule:: pysemeels.si.test_linescan
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests for the module :py:mod:`pysemeels.raw_spectrum`.
+Tests for the module :py:mod:`pysemeels.si.linescan`.
 """
 
 ###############################################################################
@@ -36,15 +36,14 @@ import h5py
 
 # Project modules.
 from pysemeels import get_current_module_path
-from pysemeels.raw_spectrum import RawSpectrum
-
+from pysemeels.si.linescan import Linescan
 
 # Globals and constants variables.
 
 
-class TestRawSpectrum(unittest.TestCase):
+class TestLinescan(unittest.TestCase):
     """
-    TestCase class for the module `pysemeels.raw_spectrum`.
+    TestCase class for the module `pysemeels.si.linescan`.
     """
 
     def setUp(self):
@@ -54,10 +53,10 @@ class TestRawSpectrum(unittest.TestCase):
 
         unittest.TestCase.setUp(self)
 
-        self.name_ref = "TestRawSpectrum"
-        self.spectrum = RawSpectrum(self.name_ref)
+        self.name_ref = "TestLinescan"
+        self.linescan = Linescan(self.name_ref)
 
-        self.test_data_path = get_current_module_path(__file__, '../test_data')
+        self.test_data_path = get_current_module_path(__file__, '../../test_data')
 
     def tearDown(self):
         """
@@ -78,10 +77,10 @@ class TestRawSpectrum(unittest.TestCase):
         """
         Test __init__ method.
         """
-        name_ref = "TestRawSpectrum_init"
-        spectrum = RawSpectrum(name_ref)
+        name_ref = "TestLinescan_init"
+        linescan = Linescan(name_ref)
 
-        self.assertEqual(name_ref, spectrum.name)
+        self.assertEqual(name_ref, linescan.name)
 
         # self.fail("Test if the testcase is working.")
 
@@ -90,10 +89,10 @@ class TestRawSpectrum(unittest.TestCase):
         Test write_hdf5 method.
         """
 
-        filepath = os.path.join(self.test_data_path, "test_raw_spectrum_write_hdf5.hdf5")
+        filepath = os.path.join(self.test_data_path, "test_linescan_write_hdf5.hdf5")
         with h5py.File(filepath, "w") as hdf5_file:
 
-            self.spectrum.write_hdf5(hdf5_file)
+            self.linescan.write_hdf5(hdf5_file)
 
             self.assertTrue(self.name_ref in hdf5_file)
 
@@ -108,9 +107,9 @@ class TestRawSpectrum(unittest.TestCase):
         Test read_hdf5 method.
         """
 
-        filepath = os.path.join(self.test_data_path, "test_raw_spectrum_read_hdf5.hdf5")
+        filepath = os.path.join(self.test_data_path, "test_linescan_read_hdf5.hdf5")
         with h5py.File(filepath, "r") as hdf5_file:
-            self.spectrum.read_hdf5(hdf5_file)
+            self.linescan.read_hdf5(hdf5_file)
 
         # self.fail("Test if the testcase is working.")
 
@@ -120,11 +119,11 @@ class TestRawSpectrum(unittest.TestCase):
         """
 
         name_ref = "TestProject_init"
-        spectrum = RawSpectrum(name_ref)
+        linescan = Linescan(name_ref)
 
-        filepath = os.path.join(self.test_data_path, "test_raw_spectrum_read_hdf5.hdf5")
+        filepath = os.path.join(self.test_data_path, "test_linescan_read_hdf5.hdf5")
         with h5py.File(filepath, "r") as hdf5_file:
-            self.assertRaises(ValueError, spectrum.read_hdf5, hdf5_file)
+            self.assertRaises(ValueError, linescan.read_hdf5, hdf5_file)
 
         # self.fail("Test if the testcase is working.")
 

@@ -6,7 +6,7 @@
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Raw EELS spectrum data.
+Raw EELS linescan data.
 """
 
 ###############################################################################

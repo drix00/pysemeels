@@ -6,7 +6,7 @@
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Simulation of a low-loss spectrum using Drude model.
+Simulation of a low-loss linescan using Drude model.
 """
 
 ###############################################################################
