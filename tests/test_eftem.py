@@ -98,9 +98,9 @@ class TestEftem(unittest.TestCase):
 
             root_group = hdf5_file[self.name_ref]
 
-        # self.fail("Test if the testcase is working.")
-
         os.remove(filepath)
+
+        # self.fail("Test if the testcase is working.")
 
     def test_read_hdf5(self):
         """

@@ -35,6 +35,8 @@ import numpy as np
 import pySpectrumFileFormat.emmff.emsa as emsa
 
 # Project modules.
+from pysemeels.tools.hdf5_file_labels import *
+from pysemeels.hitachi.eels_su import UnitError
 
 # Globals and constants variables.
 
@@ -60,7 +62,10 @@ class ElvFile():
     loss_energy_channel = 608
 
     def __init__(self):
-        pass
+        self.energies_eV = []
+        self.raw_counts = []
+        self.gain_corrections = []
+        self.dark_currents = []
 
     def read(self, file):
         lines = file.readlines()
@@ -83,10 +88,21 @@ class ElvFile():
                 elif keyword.startswith("comment"):
                     self.comment = value
                 elif keyword.startswith("dose"):
+                    value, unit = float(value[:-2]), value[-2:]
+                    if unit == "ms":
+                        value = value * 1.0e3
+                    if unit != "µs" and unit != "ms":
+                        raise UnitError("Dose is not µs: {}".format(unit))
                     self.dose = value
                 elif keyword.startswith("Energy Window Width"):
+                    value, unit = float(value[:-2]), value[-2:]
+                    if unit != "eV":
+                        raise UnitError("Energy width unit is not eV: {}".format(unit))
                     self.energy_width = value
                 elif keyword.startswith("center"):
+                    value, unit = float(value[:-2]), value[-2:]
+                    if unit != "ch":
+                        raise UnitError("Dual det. center unit is not ch: {}".format(unit))
                     self.dual_det_center = value
                 elif keyword == "Q1":
                     self.q1 = int(value)
@@ -135,12 +151,21 @@ class ElvFile():
                             keyword, value = item.split('=')
                             value = value.strip()
                             if keyword.startswith("LE"):
+                                value, unit = float(value[:-2]), value[-2:]
+                                if unit != "eV":
+                                    raise UnitError("Energy loss unit is not eV: {}".format(unit))
                                 self.le = value
                             elif keyword.startswith("Raw"):
                                 self.raw = float(value)
                             elif keyword.startswith("Dual det. position"):
+                                value, unit = float(value[:-2]), value[-2:]
+                                if unit != "ch":
+                                    raise UnitError("Dual det. position unit is not ch: {}".format(unit))
                                 self.dual_det_position = value
                             elif keyword.startswith("post"):
+                                value, unit = float(value[:-2]), value[-2:]
+                                if unit != "ch":
+                                    raise UnitError("Dual det. post unit is not ch: {}".format(unit))
                                 self.dual_det_post = value
                         except ValueError:
                             if len(items) == 2:
@@ -199,7 +224,6 @@ class ElvFile():
         spectrum.header.xunits = 'eV'
         spectrum.header.yunits = 'Counts'
         spectrum.header.datatype = emsa.DATA_TYPE_Y
-        # spectrum.header.xperchan = "{:.4f}".format((self.energies_eV[-1] - self.energies_eV[0]) / float(len(self.energies_eV)))
         spectrum.header.xperchan = "{}".format((self.energies_eV[-1] - self.energies_eV[0]) / float(len(self.energies_eV)))
         spectrum.header.offset = self.energies_eV[0]
         spectrum.header.signal = emsa.SIGNAL_TYPE_ELS
@@ -208,6 +232,40 @@ class ElvFile():
 
         with open(file_path, 'w', newline="\n") as msa_file:
             emsa.write(spectrum, msa_file)
+
+    def parameters(self):
+        _parameters = {}
+        _parameters[HDF5_DATE] = self.date
+        _parameters[HDF5_TIME] = self.time
+        _parameters[HDF5_COMMENT] = self.comment
+        _parameters[HDF5_ACQUISITION_SPEED] = self.dose
+        _parameters[HDF5_ENERGY_LOSS] = self.le
+        _parameters[HDF5_RAW] = self.raw
+        _parameters[HDF5_ENERGY_WIDTH_eV] = self.energy_width
+        _parameters[HDF5_DUAL_DET_POSITION] = self.dual_det_position
+        _parameters[HDF5_DUAL_DET_POST] = self.dual_det_post
+        _parameters[HDF5_DUAL_DET_CENTER] = self.dual_det_center
+        _parameters[HDF5_Q1] = self.q1
+        _parameters[HDF5_Q1S] = self.q1s
+        _parameters[HDF5_Q2] = self.q2
+        _parameters[HDF5_Q2S] = self.q2s
+        _parameters[HDF5_Q3] = self.q3
+        _parameters[HDF5_H1] = self.h1
+        _parameters[HDF5_H1S] = self.h1s
+        _parameters[HDF5_H2] = self.h2
+        _parameters[HDF5_H2S] = self.h2s
+        _parameters[HDF5_H4] = self.h4
+        _parameters[HDF5_ELV_X] = self.elv_x
+        _parameters[HDF5_ELV_Y] = self.elv_y
+        _parameters[HDF5_SPECTRUM_ALIGNMENT_X] = self.spectrum_alignment_x
+        _parameters[HDF5_SPECTRUM_ALIGNMENT_Y] = self.spectrum_alignment_y
+        _parameters[HDF5_DET_SPEC_ALIGNMENT_X] = self.det_spec_alignment_x
+        _parameters[HDF5_DET_SPEC_ALIGNMENT_Y] = self.det_spec_alignment_y
+        _parameters[HDF5_DET_MAP_ALIGNMENT_X] = self.det_map_alignment_x
+        _parameters[HDF5_DET_MAP_ALIGNMENT_Y] = self.det_map_alignment_y
+        _parameters[HDF5_MAGNIFICATION] = self.mag
+
+        return _parameters
 
     @property
     def counts(self):

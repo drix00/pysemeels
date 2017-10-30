@@ -44,7 +44,7 @@ HDF5_TIME = "time"
 HDF5_ACCELERATING_VOLTAGE_V = "accelerating voltage (V)"
 HDF5_ENERGY_WIDTH_eV = "energy width (eV)"
 HDF5_ENERGY_LOSS = "energy loss (eV)"
-HDF5_ACQUISITION_SPEED = "acquisition speed"
+HDF5_ACQUISITION_SPEED = "acquisition speed_us"
 # todo Find meaning of these parameters.
 HDF5_RAW = "raw"
 HDF5_DUAL_DET_POSITION = "dual_det_position"

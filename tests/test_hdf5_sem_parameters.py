@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: pysemeels.hitachi.eels_su.test_elv_text_file
+.. py:currentmodule:: tests.test_hdf5_sem_parameters
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests for the module :py:mod:`ElvTextFile`.
+Tests for the module :py:mod:`pysemeels.hdf5_sem_parameters`.
 """
 
 ###############################################################################
@@ -27,23 +27,20 @@ Tests for the module :py:mod:`ElvTextFile`.
 
 # Standard library modules.
 import unittest
-import os.path
 
 # Third party modules.
-from nose import SkipTest
 
 # Local modules.
 
 # Project modules.
-from pysemeels.hitachi.eels_su.elv_text_file import ElvTextParameters
-from pysemeels import get_current_module_path
+from pysemeels.hdf5_sem_parameters import *
 
 # Globals and constants variables.
 
 
-class TestElvTextFile(unittest.TestCase):
+class TestEftem(unittest.TestCase):
     """
-    TestCase class for the module `ElvTextFile`.
+    TestCase class for the module `pysemeels.hdf5_sem_parameters`.
     """
 
     def setUp(self):
@@ -52,11 +49,6 @@ class TestElvTextFile(unittest.TestCase):
         """
 
         unittest.TestCase.setUp(self)
-
-        self.elv_text_file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.txt")
-
-        if not os.path.isfile(self.elv_text_file_path):
-            raise SkipTest
 
     def tearDown(self):
         """
@@ -73,28 +65,24 @@ class TestElvTextFile(unittest.TestCase):
         # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
-    def test_read_text_file(self):
+    def test_parameters(self):
         """
         First test to check if the testcase is working with the testing framework.
         """
 
-        with open(self.elv_text_file_path, 'r', encoding="UTF-16") as elv_text_file:
-            elv_text_parameters = ElvTextParameters()
-            elv_text_parameters.read(elv_text_file)
+        self.assertEqual("instruct name", HDF5_ATTRIBUTE_INSTRUCT_NAME)
+        self.assertEqual("accelerating voltage (V)", HDF5_ATTRIBUTE_ACCELERATING_VOLTAGE_V)
+        self.assertEqual("deceleration voltage (V)", HDF5_ATTRIBUTE_DECELERATION_VOLTAGE_V)
+        self.assertEqual("working distance (um)", HDF5_ATTRIBUTE_WORKING_DISTANCE_um)
+        self.assertEqual("emission current (nA)", HDF5_ATTRIBUTE_EMISSION_CURRENT_nA)
+        self.assertEqual("specimen bias (V)", HDF5_ATTRIBUTE_SPECIMEN_BIAS_V)
+        self.assertEqual("dynamic focus", HDF5_ATTRIBUTE_DYNAMIC_FOCUS)
 
-            self.assertEqual("SU-EELS", elv_text_parameters.model)
-            self.assertEqual(0.0, elv_text_parameters.sample_height_mm)
-            self.assertEqual(r"D:\2017\System_baseline_march2017\30kV_7eV.elv", elv_text_parameters.file_name)
-            self.assertEqual("", elv_text_parameters.comment)
-            self.assertEqual("01/Mar/2017", elv_text_parameters.date)
-            self.assertEqual("10:59", elv_text_parameters.time)
-            self.assertEqual(30000, elv_text_parameters.accelerating_voltage_V)
-            self.assertEqual(7.0, elv_text_parameters.energy_width_eV)
-            self.assertEqual(0.0, elv_text_parameters.energy_loss_eV)
-            self.assertEqual(500, elv_text_parameters.speed_us)
+        self.assertEqual("condenser aperture size id", HDF5_ATTRIBUTE_CONDENSER_APERTURE_SIZE_ID)
+        self.assertEqual("objective aperture size id", HDF5_ATTRIBUTE_OBJECTIVE_APERTURE_SIZE_ID)
+        self.assertEqual("bright field aperture size id", HDF5_ATTRIBUTE_BRIGHT_FIELD_APERTURE_SIZE_ID)
 
         # self.fail("Test if the testcase is working.")
-        self.assert_(True)
 
 
 if __name__ == '__main__':  # pragma: no cover

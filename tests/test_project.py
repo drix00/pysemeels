@@ -126,9 +126,9 @@ class TestProject(unittest.TestCase):
             self.assertTrue(HDF5_GROUP_SPECTRAL_IMAGING in root_group)
             self.assertTrue(HDF5_GROUP_ENERGY_FILTERED_MICROGRAPHS in root_group)
 
-        # self.fail("Test if the testcase is working.")
-
         os.remove(filepath)
+
+        # self.fail("Test if the testcase is working.")
 
     def test_read_hdf5(self):
         """

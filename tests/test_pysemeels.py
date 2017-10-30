@@ -2,27 +2,65 @@
 # -*- coding: utf-8 -*-
 
 """
-test_pysemeels
-----------------------------------
+.. py:currentmodule:: tests.test_pysemeels
 
-Tests for `pysemeels` module.
+.. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
+
+Tests for the module :py:mod:`pysemeels.pysemeels`.
 """
 
+###############################################################################
+# Copyright 2017 Hendrix Demers
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+###############################################################################
 
-import sys
+# Standard library modules.
 import unittest
 
-from pysemeels import pysemeels
+# Third party modules.
+
+# Local modules.
+
+# Project modules.
+import pysemeels.pysemeels
+
+# Globals and constants variables.
 
 
-
-class TestPysemeels(unittest.TestCase):
+class TestEftem(unittest.TestCase):
+    """
+    TestCase class for the module `pysemeels.pysemeels`.
+    """
 
     def setUp(self):
-        pass
+        """
+        Setup method.
+        """
+
+        unittest.TestCase.setUp(self)
 
     def tearDown(self):
-        pass
+        """
+        Teardown method.
+        """
 
-    def test_000_something(self):
-        pass
+        unittest.TestCase.tearDown(self)
+
+    def testSkeleton(self):
+        """
+        First test to check if the testcase is working with the testing framework.
+        """
+
+        # self.fail("Test if the testcase is working.")
+        self.assert_(True)

@@ -60,15 +60,15 @@ class GenerateHdf5File(object):
             elv_text_parameters.read(elv_text_file)
 
             spectrum_group.attrs[HDF5_MODEL] = elv_text_parameters.model
-            spectrum_group.attrs[HDF5_SAMPLE_HEIGHT] = elv_text_parameters.sample_height
+            spectrum_group.attrs[HDF5_SAMPLE_HEIGHT] = elv_text_parameters.sample_height_mm
             spectrum_group.attrs[HDF5_FILE_PATH] = elv_text_parameters.file_name
             spectrum_group.attrs[HDF5_COMMENT] = elv_text_parameters.comment
             spectrum_group.attrs[HDF5_DATE] = elv_text_parameters.date
             spectrum_group.attrs[HDF5_TIME] = elv_text_parameters.time
             spectrum_group.attrs[HDF5_ACCELERATING_VOLTAGE_V] = elv_text_parameters.accelerating_voltage_V
-            spectrum_group.attrs[HDF5_ENERGY_WIDTH_eV] = float(elv_text_parameters.energy_width[:-2])
-            spectrum_group.attrs[HDF5_ENERGY_LOSS] = elv_text_parameters.energy_loss
-            spectrum_group.attrs[HDF5_ACQUISITION_SPEED] = elv_text_parameters.speed
+            spectrum_group.attrs[HDF5_ENERGY_WIDTH_eV] = elv_text_parameters.energy_width_eV
+            spectrum_group.attrs[HDF5_ENERGY_LOSS] = elv_text_parameters.energy_loss_eV
+            spectrum_group.attrs[HDF5_ACQUISITION_SPEED] = elv_text_parameters.speed_us
 
         with open(file_path, 'r') as elv_text_file:
             elv_file = ElvFile()
@@ -82,7 +82,7 @@ class GenerateHdf5File(object):
 
             spectrum_group.attrs[HDF5_RAW] = elv_file.raw
 
-            self.compare_attribute(spectrum_group, HDF5_ENERGY_WIDTH_eV, float(elv_file.energy_width[:-2]))
+            self.compare_attribute(spectrum_group, HDF5_ENERGY_WIDTH_eV, elv_file.energy_width)
 
             spectrum_group.attrs[HDF5_DUAL_DET_POSITION] = elv_file.dual_det_position
             spectrum_group.attrs[HDF5_DUAL_DET_POST] = elv_file.dual_det_post

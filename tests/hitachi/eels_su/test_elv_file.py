@@ -40,6 +40,7 @@ from pysemeels.hitachi.eels_su.elv_file import ElvFile
 
 # Globals and constants variables.
 
+
 class TestSimulationData(unittest.TestCase):
     """
     TestCase class for the module `xrayspectrummodeling.map.simulation_data`.
@@ -69,7 +70,7 @@ class TestSimulationData(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
     def test_read_file(self):
@@ -84,13 +85,13 @@ class TestSimulationData(unittest.TestCase):
             self.assertEqual("01/Mar/2017", elv_file.date)
             self.assertEqual("10:59", elv_file.time)
             self.assertEqual("", elv_file.comment)
-            self.assertEqual("500µs", elv_file.dose)
-            self.assertEqual("0.0eV", elv_file.le)
+            self.assertEqual(500, elv_file.dose)
+            self.assertEqual(0.0, elv_file.le)
             self.assertEqual(98.7, elv_file.raw)
-            self.assertEqual("7.0eV", elv_file.energy_width)
-            self.assertEqual("586ch", elv_file.dual_det_position)
-            self.assertEqual("133ch", elv_file.dual_det_post)
-            self.assertEqual("608ch", elv_file.dual_det_center)
+            self.assertEqual(7.0, elv_file.energy_width)
+            self.assertEqual(586, elv_file.dual_det_position)
+            self.assertEqual(133, elv_file.dual_det_post)
+            self.assertEqual(608, elv_file.dual_det_center)
             self.assertEqual(13575, elv_file.q1)
             self.assertEqual(3850, elv_file.q1s)
             self.assertEqual(0, elv_file.q2)
@@ -127,7 +128,7 @@ class TestSimulationData(unittest.TestCase):
             self.assertEqual(0, elv_file.dark_currents[-1])
             self.assertEqual(1024, len(elv_file.dark_currents))
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
 
