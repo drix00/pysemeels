@@ -10,10 +10,27 @@ Subpackages
     pysemeels.egerton2011
     pysemeels.hitachi
     pysemeels.mc
+    pysemeels.si
     pysemeels.tools
 
 Submodules
 ----------
+
+pysemeels\.eftem module
+-----------------------
+
+.. automodule:: pysemeels.eftem
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+pysemeels\.hdf5\_sem\_parameters module
+---------------------------------------
+
+.. automodule:: pysemeels.hdf5_sem_parameters
+    :members:
+    :undoc-members:
+    :show-inheritance:
 
 pysemeels\.project module
 -------------------------
@@ -23,10 +40,10 @@ pysemeels\.project module
     :undoc-members:
     :show-inheritance:
 
-pysemeels\.pysemeels module
----------------------------
+pysemeels\.raw\_spectrum module
+-------------------------------
 
-.. automodule:: pysemeels.pysemeels
+.. automodule:: pysemeels.raw_spectrum
     :members:
     :undoc-members:
     :show-inheritance:

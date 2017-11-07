@@ -38,17 +38,30 @@ from pysemeels.hitachi.eels_su.elv_file import ElvFile
 from pysemeels.hitachi.eels_su.elv_text_file import ElvTextParameters
 
 # Globals and constants variables.
+#:
 HDF5_GROUP_EXTRA_PARAMETERS = "extra parameters"
+#:
 HDF5_GROUP_EELS_PARAMETERS = "eels parameters"
 
+#:
 HDF5_DATASET_ENERGIES_keV = "energies eV"
+#:
 HDF5_DATASET_RAW_COUNTS = "raw counts"
+#:
 HDF5_DATASET_GAIN_CORRECTIONS = "gain corrections"
+#:
 HDF5_DATASET_DARK_CURRENTS = "dark currents"
 
 
 class RawSpectrum(object):
+    """
+    Container for raw EELS spectrum data.
+    """
     def __init__(self, name):
+        """
+
+        :param str name: Name of the raw EELS spectrum data.
+        """
         self.name = name
 
         self.extra_parameters = {}
@@ -60,6 +73,13 @@ class RawSpectrum(object):
         self.dark_currents = None
 
     def read_hdf5(self, parent_group):
+        """
+        Read the raw EELS spectrum from the HDF5 parent group.
+
+        :param `h5py.group` parent_group: read the data from this group.
+        :return: None.
+        :raises ValueError: If the parent group `parent_group` does not have the correct name.
+        """
         if self.name in parent_group:
             project_group = parent_group[self.name]
 
@@ -89,6 +109,12 @@ class RawSpectrum(object):
             raise ValueError("The parent group does not contain the project")
 
     def write_hdf5(self, parent_group):
+        """
+        Write the raw EELS spectrum into the parent group `parent_group`.
+
+        :param `h5py.group` parent_group: write data into this group.
+        :return: None.
+        """
         project_group = parent_group.require_group(self.name)
 
         if self.extra_parameters:
@@ -114,6 +140,13 @@ class RawSpectrum(object):
             project_group.create_dataset(HDF5_DATASET_DARK_CURRENTS, data=self.dark_currents)
 
     def import_data(self, filepath, extra_parameters=None):
+        """
+        Import the raw EELS spectrum data (elv file).
+
+        :param str filepath: File path of the .elv file.
+        :param dict extra_parameters: Extra parameters to add as attribute in this data group.
+        :return: None.
+        """
         if extra_parameters:
             self.extra_parameters.update(extra_parameters)
 
@@ -137,5 +170,23 @@ class RawSpectrum(object):
 
     @property
     def counts(self):
+        """
+        Compute the net counts of the EELS spectrum.
+
+        The corrected or net counts are calculated for each channel as
+
+        .. math::
+            N = \\frac{C - D}{G}
+
+        where
+
+            - :math:`N` is the net count
+            - :math:`C` is the raw count
+            - :math:`D` is the dark current
+            - :math:`G` is the gain correction
+
+        :return: Counts corrected for grain and dark current.
+        :rtype: `np.array`
+        """
         corrected_counts = (self.raw_counts - self.dark_currents) / self.gain_corrections
         return corrected_counts

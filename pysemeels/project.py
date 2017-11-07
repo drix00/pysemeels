@@ -51,27 +51,57 @@ from pysemeels.si.map import Map
 from pysemeels.eftem import Eftem
 
 # Globals and constants variables.
+#: Author of the project.
 HDF5_ATTRIBUTE_AUTHOR = "author"
+#: Raw spectra: raw counts, dark current, and gain correction.
 HDF5_GROUP_SPECTRA = "spectra"
+#: Spectral imaging EELS data.
 HDF5_GROUP_SPECTRAL_IMAGING = "spectral imaging"
+#: Point spectra.
 HDF5_GROUP_POINTS = "points"
+#: Line scan spectra.
 HDF5_GROUP_LINE_SCANS = "line scans"
+#: Map spectra
 HDF5_GROUP_MAPS = "maps"
+#: SEM and EFTEM micrographs.
 HDF5_GROUP_ENERGY_FILTERED_MICROGRAPHS = "energy filtered micrographs"
 
 
 class Project(object):
+    """
+    Project contains all the EELS data and write and read HDF5 file.
+
+    The different list of data are only read/write if the list is not empty.
+    """
     def __init__(self, name):
+        """
+
+        :param str name: Name of the project.
+        """
+        #: Name of the project.
         self.name = name
+        #: Author of the project.
         self.author = ""
 
+        #: List of raw spectrum.
         self.spectra = []
+        #: Spectral imaging point spectra.
         self.si_points = []
+        #: Spectral imaging line scan spectra
         self.si_line_scans = []
+        #: Spectral imaging map spectra
         self.si_maps = []
+        #: Energy filtered and electron micrographs.
         self.energy_filtered_micrographs = []
 
     def read_hdf5(self, parent_group):
+        """
+        Read the project data from a HDF5 parent group.
+
+        :param `h5py.group` parent_group: read the project from this group.
+        :return: None.
+        :raises ValueError: If the parent group `parent_group` does not contain a project with the correct name.
+        """
         if self.name in parent_group:
             project_group = parent_group[self.name]
             self.author = project_group.attrs[HDF5_ATTRIBUTE_AUTHOR]
@@ -112,6 +142,12 @@ class Project(object):
             raise ValueError("The parent group does not contain the project")
 
     def write_hdf5(self, parent_group):
+        """
+        Write the values of the current project into the parent group `parent_group`.
+
+        :param `h5py.group` parent_group: write project into this group.
+        :return: None.
+        """
         project_group = parent_group.require_group(self.name)
 
         project_group.attrs[HDF5_ATTRIBUTE_AUTHOR] = self.author

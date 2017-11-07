@@ -6,7 +6,7 @@
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Raw EELS EFTEM data.
+EELS EFTEM and electron micrograph data.
 """
 
 ###############################################################################
@@ -37,14 +37,34 @@ Raw EELS EFTEM data.
 
 
 class Eftem(object):
+    """
+    Container of the EELS EFTEM and electron micrographs.
+    """
     def __init__(self, name):
+        """
+
+        :param str name: name of the set of micrographs.
+        """
         self.name = name
 
     def read_hdf5(self, parent_group):
+        """
+        Read the micrographs from the HDF5 parent group.
+
+        :param `h5py.group` parent_group: read the data from this group.
+        :return: None.
+        :raises ValueError: If the parent group `parent_group` does not have the correct name.
+        """
         if self.name in parent_group:
             project_group = parent_group[self.name]
         else:
             raise ValueError("The parent group does not contain the project")
 
     def write_hdf5(self, parent_group):
+        """
+        Write the micrographs into the parent group `parent_group`.
+
+        :param `h5py.group` parent_group: write micrographs into this group.
+        :return: None.
+        """
         project_group = parent_group.require_group(self.name)
