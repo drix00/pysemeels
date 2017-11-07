@@ -40,6 +40,7 @@ from pysemeels.hitachi.eels_su.map.ana_file import AnaFile
 
 # Globals and constants variables.
 
+
 class TestSimulationData(unittest.TestCase):
     """
     TestCase class for the module `pysemeels.hitachi.eels_su.ana_file`.

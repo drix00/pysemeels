@@ -38,13 +38,13 @@ import numpy as np
 # Globals and constants variables.
 
 
-class Spectrum():
+class Spectrum(object):
     def __init__(self):
         self.energies_eV = []
         self.counts = []
 
 
-class AnaFile():
+class AnaFile(object):
     def __init__(self):
         self.energies_eV = []
         self.total_spectra = {}

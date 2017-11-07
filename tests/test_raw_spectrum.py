@@ -217,7 +217,7 @@ class TestRawSpectrum(unittest.TestCase):
             self.assertTrue(HDF5_GROUP_EELS_PARAMETERS in root_group)
             self.assertTrue(HDF5_ATTRIBUTE_ACCELERATING_VOLTAGE_V in root_group[HDF5_GROUP_EELS_PARAMETERS].attrs)
 
-        # os.remove(filepath)
+        os.remove(filepath)
 
         # self.fail("Test if the testcase is working.")
 
