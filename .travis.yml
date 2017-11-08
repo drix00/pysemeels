@@ -27,8 +27,8 @@ after_success:
 notifications:
   email: false
 
-#git:
-#  lfs_skip_smudge: true
+git:
+  lfs_skip_smudge: true
 
 # After you create the Github repo and add it to Travis, run the
 # travis_pypi_setup.py script to finish PyPI deployment setup

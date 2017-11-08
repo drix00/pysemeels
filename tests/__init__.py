@@ -27,6 +27,7 @@ Tests for package :py:mod:`pysemeels`.
 
 # Standard library modules.
 import os.path
+import logging
 
 # Third party modules.
 
@@ -41,8 +42,10 @@ def _is_git_lfs_file(input_file):
     try:
         lines = input_file.readlines()
     except UnicodeDecodeError:
+        logging.debug(lines[0])
         return False
 
+    logging.debug(lines[0])
     if lines[0].startswith("version https://git-lfs.github.com/spec"):
         return True
     else:
