@@ -80,6 +80,13 @@ class TestFunctions(unittest.TestCase):
         self.git_lfs_file.write("\n")
         self.git_lfs_file.seek(0)
 
+        self.git_lfs_file2 = TemporaryFile("w+t")
+        self.git_lfs_file2.write("version https://git-lfs.github.com/spec/v1\n")
+        self.git_lfs_file2.write(r"oid sha256:4d7a214614ab293b543f9e0ff69d22eadbb8f32b1258daaa5e2ca24d17e2393\n")
+        self.git_lfs_file2.write("size 12345\n")
+        self.git_lfs_file2.write("\n")
+        self.git_lfs_file2.seek(0)
+
     def test_is_git_lfs_file_bad(self):
         file_path = get_current_module_path(__file__, "test_pysemeels.py")
         if not os.path.isfile(file_path):
@@ -90,6 +97,8 @@ class TestFunctions(unittest.TestCase):
 
     def test_is_git_lfs_file_good(self):
         self.assertEqual(True, is_git_lfs_file(self.git_lfs_file))
+
+        self.assertEqual(True, is_git_lfs_file(self.git_lfs_file2))
 
         # self.fail("Test if the testcase is working.")
 

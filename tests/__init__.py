@@ -39,18 +39,18 @@ import logging
 
 
 def _is_git_lfs_file(input_file):
-    lines = []
+    line = None
     try:
-        lines = input_file.readlines()
+        line = input_file.readline()
     except UnicodeDecodeError as message:
         logging.debug(message)
-        if len(lines) > 0:
-            logging.debug(lines[0])
+        if line:
+            logging.debug(line)
         return False
 
-    if len(lines) > 0:
-        logging.debug(lines[0])
-    if lines[0].startswith("version https://git-lfs.github.com/spec"):
+    if line:
+        logging.debug(line)
+    if line.startswith("version https://git-lfs.github.com/spec"):
         return True
     else:
         return False
