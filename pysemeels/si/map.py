@@ -26,19 +26,37 @@ Spectral imaging map EELS data.
 ###############################################################################
 
 # Standard library modules.
+import os.path
 
 # Third party modules.
 
 # Local modules.
 
 # Project modules.
+from pysemeels.hitachi.eels_su.map.ana_file import AnaFile
+from pysemeels.hitachi.eels_su.map.text_file import TextParameters
 
 # Globals and constants variables.
+HDF5_GROUP_SPECTRA_1 = "spectra 1"
+HDF5_GROUP_SPECTRA_2 = "spectra 2"
+HDF5_GROUP_SPECTRA_3 = "spectra 3"
 
 
 class Map(object):
+    """
+    Container for spectral imaging map EELS data.
+    """
     def __init__(self, name):
+        """
+
+        :param str name: Name of the spectral imaging map EELS data folder.
+        """
         self.name = name
+
+        self.extra_parameters = {}
+        self.eels_parameters = {}
+
+        self.energies_eV = None
 
     def read_hdf5(self, parent_group):
         if self.name in parent_group:
@@ -48,3 +66,38 @@ class Map(object):
 
     def write_hdf5(self, parent_group):
         project_group = parent_group.require_group(self.name)
+
+    def import_data(self, folder, extra_parameters=None):
+        """
+        Import the EELS spectral map data (ana file).
+
+        :param str folder: Folder that contain the .ana file.
+        :param dict extra_parameters: Extra parameters to add as attribute in this data group.
+        :return: None.
+        """
+        if extra_parameters:
+            self.extra_parameters.update(extra_parameters)
+
+        for data_id in [1, 2, 3]:
+            filename = "spectra_{}.ana".format(data_id)
+            filepath = os.path.join(folder, filename)
+            if os.path.isfile(filepath):
+                with open(filepath, 'r') as ana_file:
+                    ana_file_data = AnaFile()
+                    ana_file_data.read(ana_file)
+
+                    self.energies_eV = ana_file_data.energies_eV
+                    # self.energies_eV = np.array(elv_data.energies_eV)
+                    # self.raw_counts = np.array(elv_data.raw_counts)
+                    # self.gain_corrections = np.array(elv_data.gain_corrections)
+                    # self.dark_currents = np.array(elv_data.dark_currents)
+                    #
+                    # self.eels_parameters.update(elv_data.parameters())
+
+        name = os.path.basename(folder)
+        filepath_txt = os.path.join(folder, name + ".txt")
+        with open(filepath_txt, 'r', encoding="UTF-16") as text_file:
+            text_parameters = TextParameters()
+            text_parameters.read(text_file)
+
+            # self.eels_parameters.update(text_parameters.items())

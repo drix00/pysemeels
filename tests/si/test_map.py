@@ -31,12 +31,14 @@ import os
 
 # Third party modules.
 import h5py
+from nose import SkipTest
 
 # Local modules.
 
 # Project modules.
 from pysemeels import get_current_module_path
 from pysemeels.si.map import Map
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -108,6 +110,9 @@ class TestMap(unittest.TestCase):
         """
 
         filepath = os.path.join(self.test_data_path, "test_map_read_hdf5.hdf5")
+        if is_bad_file(filepath):
+            raise SkipTest
+
         with h5py.File(filepath, "r") as hdf5_file:
             self.map.read_hdf5(hdf5_file)
 
@@ -122,8 +127,34 @@ class TestMap(unittest.TestCase):
         map = Map(name_ref)
 
         filepath = os.path.join(self.test_data_path, "test_map_read_hdf5.hdf5")
+        if is_bad_file(filepath):
+            raise SkipTest
+
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, map.read_hdf5, hdf5_file)
+
+        # self.fail("Test if the testcase is working.")
+
+    def test_import_data(self):
+        """
+        Test import_data method.
+        """
+
+        si_map_folder = os.path.join(self.test_data_path, "hitachi/eels_su/zlp_2.5kx_60eV_map_lower")
+
+        if not os.path.isdir(si_map_folder):
+            raise SkipTest
+
+        name = os.path.basename(si_map_folder)
+        si_map = Map(name)
+        si_map.import_data(si_map_folder)
+
+        # self.assertEqual(-32.00, map.energies_eV[0])
+        # self.assertEqual(2282, map.raw_counts[0])
+        # self.assertEqual(21.84, map.energies_eV[-1])
+        # self.assertEqual(0, map.raw_counts[-1])
+        # self.assertEqual(1024, len(map.energies_eV))
+        # self.assertEqual(1024, len(map.raw_counts))
 
         # self.fail("Test if the testcase is working.")
 
