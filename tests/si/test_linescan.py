@@ -111,7 +111,7 @@ class TestLinescan(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_linescan_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            SkipTest
+            raise SkipTest
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.linescan.read_hdf5(hdf5_file)
@@ -128,7 +128,7 @@ class TestLinescan(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_linescan_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            SkipTest
+            raise SkipTest
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, linescan.read_hdf5, hdf5_file)

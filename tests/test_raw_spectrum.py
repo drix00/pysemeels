@@ -70,7 +70,7 @@ class TestRawSpectrum(unittest.TestCase):
         self.elv_file_path = os.path.join(self.test_data_path, "hitachi/eels_su/30kV_7eV.elv")
 
         if is_bad_file(self.elv_file_path):
-            SkipTest
+            raise SkipTest
 
         filepath = self.elv_file_path
         name = os.path.splitext(os.path.basename(filepath))[0]
@@ -128,7 +128,7 @@ class TestRawSpectrum(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_raw_spectrum_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            SkipTest
+            raise SkipTest
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.spectrum.read_hdf5(hdf5_file)
@@ -145,7 +145,7 @@ class TestRawSpectrum(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_raw_spectrum_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            SkipTest
+            raise SkipTest
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, spectrum.read_hdf5, hdf5_file)
@@ -160,7 +160,7 @@ class TestRawSpectrum(unittest.TestCase):
         self.elv_file_path = os.path.join(self.test_data_path, "hitachi/eels_su/30kV_7eV.elv")
 
         if is_bad_file(self.elv_file_path):
-            SkipTest
+            raise SkipTest
 
         filepath = self.elv_file_path
         name = os.path.splitext(os.path.basename(filepath))[0]
@@ -238,7 +238,7 @@ class TestRawSpectrum(unittest.TestCase):
         spectrum_read = RawSpectrum(name)
         filepath = os.path.join(self.test_data_path, "test_raw_spectrum_import_data_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            SkipTest
+            raise SkipTest
 
         with h5py.File(filepath, "r") as hdf5_file:
             spectrum_read.read_hdf5(hdf5_file)

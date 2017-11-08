@@ -57,7 +57,7 @@ class TestSimulationData(unittest.TestCase):
         self.raw_spectra_file_path = get_current_module_path(__file__, "../../../../test_data/hitachi/eels_su/30kV_march2017_7eV/RawSpectra/rawspect-1.dat")
 
         if is_bad_file(self.raw_spectra_file_path):
-            SkipTest
+            raise SkipTest
 
     def tearDown(self):
         """

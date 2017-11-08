@@ -57,7 +57,7 @@ class TestSimulationData(unittest.TestCase):
         self.ana_file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.ana")
 
         if is_bad_file(self.ana_file_path):
-            SkipTest
+            raise SkipTest
 
     def tearDown(self):
         """

@@ -88,7 +88,7 @@ class TestOosMaker(unittest.TestCase):
 
         file_path = get_current_module_path(__file__, "../../test_data/mc/li_hcp.oos")
         if is_bad_file(file_path):
-            SkipTest
+            raise SkipTest
 
         oos_file_ref = OosFile()
         oos_file_ref.read_file(file_path)

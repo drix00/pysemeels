@@ -57,7 +57,7 @@ class TestSimulationData(unittest.TestCase):
         self.ana_file_path = get_current_module_path(__file__, "../../../../test_data/hitachi/eels_su/30kV_march2017_7eV/spectra_1.ana")
 
         if is_bad_file(self.ana_file_path):
-            SkipTest
+            raise SkipTest
 
     def tearDown(self):
         """
@@ -133,7 +133,7 @@ class TestSimulationData(unittest.TestCase):
 
         ana_file_path = get_current_module_path(__file__, "../../../../test_data/hitachi/eels_su/vacuum_linescan_07eV_i50_52pts/spectra_3.ana")
         if is_bad_file(ana_file_path):
-            SkipTest
+            raise SkipTest
 
         with open(ana_file_path, 'r') as ana_text_file:
             ana_file = AnaFile()

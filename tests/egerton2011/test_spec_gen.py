@@ -80,7 +80,7 @@ class TestSpecGen(unittest.TestCase):
 
         test_data_file_path = get_current_module_path(__file__, "../../test_data/egerton2011/SpecGen.ssd")
         if is_bad_file(test_data_file_path):
-            SkipTest
+            raise SkipTest
 
         with open(test_data_file_path, 'r') as ref_file:
             lines = ref_file.readlines()
@@ -96,7 +96,7 @@ class TestSpecGen(unittest.TestCase):
 
         test_data_file_path = get_current_module_path(__file__, "../../test_data/egerton2011/SpecGen.psd")
         if is_bad_file(test_data_file_path):
-            SkipTest
+            raise SkipTest
 
         with open(test_data_file_path, 'r') as ref_file:
             lines = ref_file.readlines()

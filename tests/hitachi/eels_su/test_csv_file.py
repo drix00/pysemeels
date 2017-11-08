@@ -57,7 +57,7 @@ class TestCsvFile(unittest.TestCase):
         self.file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.csv")
 
         if is_bad_file(self.file_path):
-            SkipTest
+            raise SkipTest
 
     def tearDown(self):
         """

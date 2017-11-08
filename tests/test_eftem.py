@@ -111,7 +111,7 @@ class TestEftem(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_eftem_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            SkipTest
+            raise SkipTest
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.eftem.read_hdf5(hdf5_file)
@@ -128,7 +128,7 @@ class TestEftem(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_eftem_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            SkipTest
+            raise SkipTest
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, eftem.read_hdf5, hdf5_file)

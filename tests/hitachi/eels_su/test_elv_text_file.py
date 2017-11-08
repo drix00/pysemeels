@@ -57,7 +57,7 @@ class TestElvTextFile(unittest.TestCase):
         self.elv_text_file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.txt")
 
         if is_bad_file(self.elv_text_file_path):
-            SkipTest
+            raise SkipTest
 
     def tearDown(self):
         """

@@ -111,7 +111,7 @@ class TestPoint(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_point_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            SkipTest
+            raise SkipTest
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.point.read_hdf5(hdf5_file)
@@ -128,7 +128,7 @@ class TestPoint(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_point_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            SkipTest
+            raise SkipTest
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, point.read_hdf5, hdf5_file)
