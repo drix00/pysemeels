@@ -37,6 +37,7 @@ from nose import SkipTest
 # Project modules.
 from pysemeels.tools.batch_convert_elv import BatchConvertElv
 from pysemeels import get_current_module_path
+from tests import is_bad_file
 
 # Globals and constants variables.
 

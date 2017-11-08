@@ -31,6 +31,7 @@ import os
 
 # Third party modules.
 import h5py
+from nose import SkipTest
 
 # Local modules.
 
@@ -43,6 +44,7 @@ from pysemeels.si.point import Point
 from pysemeels.si.linescan import Linescan
 from pysemeels.si.map import Map
 from pysemeels.eftem import Eftem
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -136,6 +138,9 @@ class TestProject(unittest.TestCase):
         """
 
         filepath = os.path.join(self.test_data_path, "test_project_read_hdf5.hdf5")
+        if is_bad_file(filepath):
+            SkipTest
+
         with h5py.File(filepath, "r") as hdf5_file:
             self.project.read_hdf5(hdf5_file)
 
@@ -159,6 +164,9 @@ class TestProject(unittest.TestCase):
         project = Project(name_ref)
 
         filepath = os.path.join(self.test_data_path, "test_project_read_hdf5.hdf5")
+        if is_bad_file(filepath):
+            SkipTest
+
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, project.read_hdf5, hdf5_file)
 

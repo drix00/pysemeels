@@ -37,9 +37,10 @@ from nose import SkipTest
 # Project modules.
 from pysemeels.tools.convert_elv import ConvertElv
 from pysemeels import get_current_module_path
-
+from tests import is_bad_file
 
 # Globals and constants variables.
+
 
 class TestConvertElv(unittest.TestCase):
     """
@@ -81,7 +82,6 @@ class TestConvertElv(unittest.TestCase):
         # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
-
     def test_convert(self):
         """
         Test the convert method.
@@ -97,6 +97,7 @@ class TestConvertElv(unittest.TestCase):
         self.assertFalse(os.path.isfile(self.hdf5_file_path))
 
         # self.fail("Test if the testcase is working.")
+
 
 if __name__ == '__main__':  # pragma: no cover
     import nose

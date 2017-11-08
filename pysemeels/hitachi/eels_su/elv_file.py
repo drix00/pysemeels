@@ -359,6 +359,7 @@ def print_window_info():
                 middle_energy_eV = (max_energy_eV - min_energy_eV) / 2.0 + min_energy_eV
                 print("Segment {:s}: {:7.2f} to {:7.2f} eV middle {:7.2f} eV".format(segment_name, min_energy_eV, max_energy_eV, middle_energy_eV))
 
+
 def export_msa():
     from pysemeels import get_current_module_path
     elv_file_path = get_current_module_path(__file__, r"D:\Dropbox\hdemers\professional\results\experiments\2017\su9000\eels\2017\System_baseline_march2017/30kV_7eV.elv")
@@ -372,6 +373,7 @@ def export_msa():
 
         for channel_id in range(len(elv_file.energies_eV)-1):
             print(elv_file.energies_eV[channel_id+1] - elv_file.energies_eV[channel_id])
+
 
 if __name__ == '__main__':
     # plot_spectrum()

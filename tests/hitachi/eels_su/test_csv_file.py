@@ -37,8 +37,10 @@ from nose import SkipTest
 # Project modules.
 from pysemeels import get_current_module_path
 from pysemeels.hitachi.eels_su.csv_file import CsvFile
+from tests import is_bad_file
 
 # Globals and constants variables.
+
 
 class TestCsvFile(unittest.TestCase):
     """
@@ -54,8 +56,8 @@ class TestCsvFile(unittest.TestCase):
 
         self.file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.csv")
 
-        if not os.path.isfile(self.file_path):
-            raise SkipTest
+        if is_bad_file(self.file_path):
+            SkipTest
 
     def tearDown(self):
         """
@@ -69,7 +71,7 @@ class TestCsvFile(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
     def test_read_file(self):
@@ -109,10 +111,10 @@ class TestCsvFile(unittest.TestCase):
             self.assertEqual(1024, len(csv_file.energies_eV))
             self.assertEqual(1024, len(csv_file.counts))
 
-        #self.fail("Test if the testcase is working.")
-        self.assert_(True)
+        # self.fail("Test if the testcase is working.")
 
 
 if __name__ == '__main__':  # pragma: no cover
     import nose
+
     nose.runmodule()

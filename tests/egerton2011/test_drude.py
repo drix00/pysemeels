@@ -29,14 +29,17 @@ Tests for the module :py:mod:`pysemeels.egerton2011.drude`.
 import unittest
 
 # Third party modules.
+from nose import SkipTest
 
 # Local modules.
 
 # Project modules.
 from pysemeels.egerton2011.drude import drude
 from pysemeels import get_current_module_path
+from tests import is_bad_file
 
 # Globals and constants variables.
+
 
 class TestDrude(unittest.TestCase):
     """
@@ -62,7 +65,7 @@ class TestDrude(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
     def testWebsiteExample(self):
@@ -82,13 +85,16 @@ class TestDrude(unittest.TestCase):
         self.assertEqual(500, len(probabilities_surface))
 
         self.assertAlmostEqual(0.0163826, ps, 7)
-        #self.assertAlmostEqual(0.254905, pv, 6)
+        # self.assertAlmostEqual(0.254905, pv, 6)
         self.assertAlmostEqual(0.25491101951346251, pv, 6)
-        #self.assertAlmostEqual(196.151, mfp_volume_nm, 3)
+        # self.assertAlmostEqual(196.151, mfp_volume_nm, 3)
         self.assertAlmostEqual(196.14687546828225, mfp_volume_nm, 3)
         self.assertAlmostEqual(183.836505, mfp_free_nm, 6)
 
         test_data_file_path = get_current_module_path(__file__, "../../test_data/egerton2011/Drude.ssd")
+        if is_bad_file(test_data_file_path):
+            SkipTest
+
         with open(test_data_file_path, 'r') as ref_file:
             lines = ref_file.readlines()
 
@@ -102,6 +108,9 @@ class TestDrude(unittest.TestCase):
                 self.assertAlmostEqual(yy, probabilities_total[channel_id], 7, channel_id)
 
         test_data_file_path = get_current_module_path(__file__, "../../test_data/egerton2011/Drude.eps")
+        if is_bad_file(test_data_file_path):
+            SkipTest
+
         with open(test_data_file_path, 'r') as ref_file:
             lines = ref_file.readlines()
 

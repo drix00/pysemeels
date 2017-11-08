@@ -43,6 +43,7 @@ from pysemeels.raw_spectrum import RawSpectrum, HDF5_GROUP_EXTRA_PARAMETERS, HDF
 from pysemeels.hdf5_sem_parameters import HDF5_ATTRIBUTE_ACCELERATING_VOLTAGE_V
 from pysemeels.hitachi.eels_su.elv_text_file import *
 from pysemeels.tools.hdf5_file_labels import *
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -68,8 +69,8 @@ class TestRawSpectrum(unittest.TestCase):
         self.import_sem_parameters = {HDF5_ATTRIBUTE_ACCELERATING_VOLTAGE_V: 30.0e3}
         self.elv_file_path = os.path.join(self.test_data_path, "hitachi/eels_su/30kV_7eV.elv")
 
-        if not os.path.isfile(self.elv_file_path):
-            raise SkipTest
+        if is_bad_file(self.elv_file_path):
+            SkipTest
 
         filepath = self.elv_file_path
         name = os.path.splitext(os.path.basename(filepath))[0]
@@ -126,6 +127,9 @@ class TestRawSpectrum(unittest.TestCase):
         """
 
         filepath = os.path.join(self.test_data_path, "test_raw_spectrum_read_hdf5.hdf5")
+        if is_bad_file(filepath):
+            SkipTest
+
         with h5py.File(filepath, "r") as hdf5_file:
             self.spectrum.read_hdf5(hdf5_file)
 
@@ -140,6 +144,9 @@ class TestRawSpectrum(unittest.TestCase):
         spectrum = RawSpectrum(name_ref)
 
         filepath = os.path.join(self.test_data_path, "test_raw_spectrum_read_hdf5.hdf5")
+        if is_bad_file(filepath):
+            SkipTest
+
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, spectrum.read_hdf5, hdf5_file)
 
@@ -152,8 +159,8 @@ class TestRawSpectrum(unittest.TestCase):
 
         self.elv_file_path = os.path.join(self.test_data_path, "hitachi/eels_su/30kV_7eV.elv")
 
-        if not os.path.isfile(self.elv_file_path):
-            raise SkipTest
+        if is_bad_file(self.elv_file_path):
+            SkipTest
 
         filepath = self.elv_file_path
         name = os.path.splitext(os.path.basename(filepath))[0]
@@ -230,6 +237,9 @@ class TestRawSpectrum(unittest.TestCase):
         name = os.path.splitext(os.path.basename(filepath))[0]
         spectrum_read = RawSpectrum(name)
         filepath = os.path.join(self.test_data_path, "test_raw_spectrum_import_data_read_hdf5.hdf5")
+        if is_bad_file(filepath):
+            SkipTest
+
         with h5py.File(filepath, "r") as hdf5_file:
             spectrum_read.read_hdf5(hdf5_file)
 

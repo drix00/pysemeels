@@ -39,8 +39,10 @@ import h5py
 from pysemeels.tools.generate_hdf5_file import GenerateHdf5File
 from pysemeels import get_current_module_path
 from pysemeels.tools.hdf5_file_labels import *
+from tests import is_bad_file
 
 # Globals and constants variables.
+
 
 class TestGenerateHdf5File(unittest.TestCase):
     """

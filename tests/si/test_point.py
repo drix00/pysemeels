@@ -31,12 +31,14 @@ import os
 
 # Third party modules.
 import h5py
+from nose import SkipTest
 
 # Local modules.
 
 # Project modules.
 from pysemeels import get_current_module_path
 from pysemeels.si.point import Point
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -108,6 +110,9 @@ class TestPoint(unittest.TestCase):
         """
 
         filepath = os.path.join(self.test_data_path, "test_point_read_hdf5.hdf5")
+        if is_bad_file(filepath):
+            SkipTest
+
         with h5py.File(filepath, "r") as hdf5_file:
             self.point.read_hdf5(hdf5_file)
 
@@ -122,6 +127,9 @@ class TestPoint(unittest.TestCase):
         point = Point(name_ref)
 
         filepath = os.path.join(self.test_data_path, "test_point_read_hdf5.hdf5")
+        if is_bad_file(filepath):
+            SkipTest
+
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, point.read_hdf5, hdf5_file)
 

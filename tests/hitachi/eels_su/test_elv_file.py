@@ -37,6 +37,7 @@ from nose import SkipTest
 # Project modules.
 from pysemeels import get_current_module_path
 from pysemeels.hitachi.eels_su.elv_file import ElvFile
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -55,8 +56,8 @@ class TestSimulationData(unittest.TestCase):
 
         self.elv_file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.elv")
 
-        if not os.path.isfile(self.elv_file_path):
-            raise SkipTest
+        if is_bad_file(self.elv_file_path):
+            SkipTest
 
     def tearDown(self):
         """
@@ -129,9 +130,9 @@ class TestSimulationData(unittest.TestCase):
             self.assertEqual(1024, len(elv_file.dark_currents))
 
         # self.fail("Test if the testcase is working.")
-        self.assert_(True)
 
 
 if __name__ == '__main__':  # pragma: no cover
     import nose
+
     nose.runmodule()

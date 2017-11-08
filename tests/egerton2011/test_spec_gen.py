@@ -29,14 +29,17 @@ Tests for the module :py:mod:`pysemeels.egerton2011.spec_gen`.
 import unittest
 
 # Third party modules.
+from nose import SkipTest
 
 # Local modules.
 
 # Project modules.
 from pysemeels.egerton2011.spec_gen import spec_gen
 from pysemeels import get_current_module_path
+from tests import is_bad_file
 
 # Globals and constants variables.
+
 
 class TestSpecGen(unittest.TestCase):
     """
@@ -62,7 +65,7 @@ class TestSpecGen(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
     def testWebsiteExample(self):
@@ -76,6 +79,9 @@ class TestSpecGen(unittest.TestCase):
         self.assertEqual(1000, len(outpsd))
 
         test_data_file_path = get_current_module_path(__file__, "../../test_data/egerton2011/SpecGen.ssd")
+        if is_bad_file(test_data_file_path):
+            SkipTest
+
         with open(test_data_file_path, 'r') as ref_file:
             lines = ref_file.readlines()
 
@@ -89,6 +95,9 @@ class TestSpecGen(unittest.TestCase):
                 self.assertAlmostEqual(yy, outssd[channel_id], 7, channel_id)
 
         test_data_file_path = get_current_module_path(__file__, "../../test_data/egerton2011/SpecGen.psd")
+        if is_bad_file(test_data_file_path):
+            SkipTest
+
         with open(test_data_file_path, 'r') as ref_file:
             lines = ref_file.readlines()
 
@@ -101,7 +110,7 @@ class TestSpecGen(unittest.TestCase):
                 self.assertAlmostEqual(xx, eout[channel_id], 7)
                 self.assertAlmostEqual(yy, outpsd[channel_id], 7, channel_id)
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
 
 
 if __name__ == '__main__':  # pragma: no cover

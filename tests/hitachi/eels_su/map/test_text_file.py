@@ -37,7 +37,7 @@ from nose import SkipTest
 # Project modules.
 from pysemeels.hitachi.eels_su.map.text_file import TextParameters
 from pysemeels import get_current_module_path
-
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -54,8 +54,8 @@ class TestTextFile(unittest.TestCase):
         unittest.TestCase.setUp(self)
 
         self.text_file_path = get_current_module_path(__file__, "../../../../test_data/hitachi/eels_su/30kV_march2017_7eV/30kV_march2017_7eV.txt")
-        if not os.path.isfile(self.text_file_path):
-            raise SkipTest
+        if is_bad_file(self.text_file_path):
+            SkipTest
 
     def tearDown(self):
         """
@@ -69,7 +69,7 @@ class TestTextFile(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
     def test_read_text_file(self):
@@ -114,8 +114,7 @@ class TestTextFile(unittest.TestCase):
             self.assertEqual("", text_parameters.data_size)
             self.assertEqual(20, text_parameters.integration)
 
-        #self.fail("Test if the testcase is working.")
-        self.assert_(True)
+        # self.fail("Test if the testcase is working.")
 
 
 if __name__ == '__main__':  # pragma: no cover

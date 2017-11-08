@@ -37,6 +37,7 @@ from nose import SkipTest
 # Project modules.
 from pysemeels import get_current_module_path
 from pysemeels.hitachi.eels_su.map.ana_file import AnaFile
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -55,8 +56,8 @@ class TestSimulationData(unittest.TestCase):
 
         self.ana_file_path = get_current_module_path(__file__, "../../../../test_data/hitachi/eels_su/30kV_march2017_7eV/spectra_1.ana")
 
-        if not os.path.isfile(self.ana_file_path):
-            raise SkipTest
+        if is_bad_file(self.ana_file_path):
+            SkipTest
 
     def tearDown(self):
         """
@@ -70,7 +71,7 @@ class TestSimulationData(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
     def test_read_file(self):
@@ -123,8 +124,7 @@ class TestSimulationData(unittest.TestCase):
             self.assertEqual(20, len(ana_file.spectra[0]))
             self.assertEqual(19, ana_file.spectrum_id)
 
-        #self.fail("Test if the testcase is working.")
-        self.assert_(True)
+        # self.fail("Test if the testcase is working.")
 
     def test_read_file_linescan(self):
         """
@@ -132,6 +132,8 @@ class TestSimulationData(unittest.TestCase):
         """
 
         ana_file_path = get_current_module_path(__file__, "../../../../test_data/hitachi/eels_su/vacuum_linescan_07eV_i50_52pts/spectra_3.ana")
+        if is_bad_file(ana_file_path):
+            SkipTest
 
         with open(ana_file_path, 'r') as ana_text_file:
             ana_file = AnaFile()
@@ -182,10 +184,10 @@ class TestSimulationData(unittest.TestCase):
             self.assertEqual(50, len(ana_file.spectra[0]))
             self.assertEqual(49, ana_file.spectrum_id)
 
-        #self.fail("Test if the testcase is working.")
-        self.assert_(True)
+        # self.fail("Test if the testcase is working.")
 
 
 if __name__ == '__main__':  # pragma: no cover
     import nose
+
     nose.runmodule()

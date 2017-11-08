@@ -138,6 +138,7 @@ class ZeroLossPeak():
         self.fit_results_area = values['amplitude']
         self.fit_results_height = values['height']
 
+
 if __name__ == '__main__':
     import matplotlib.pyplot as plt
     from pysemeels import get_current_module_path

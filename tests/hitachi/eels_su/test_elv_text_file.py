@@ -37,6 +37,7 @@ from nose import SkipTest
 # Project modules.
 from pysemeels.hitachi.eels_su.elv_text_file import ElvTextParameters
 from pysemeels import get_current_module_path
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -55,8 +56,8 @@ class TestElvTextFile(unittest.TestCase):
 
         self.elv_text_file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.txt")
 
-        if not os.path.isfile(self.elv_text_file_path):
-            raise SkipTest
+        if is_bad_file(self.elv_text_file_path):
+            SkipTest
 
     def tearDown(self):
         """
@@ -94,9 +95,9 @@ class TestElvTextFile(unittest.TestCase):
             self.assertEqual(500, elv_text_parameters.speed_us)
 
         # self.fail("Test if the testcase is working.")
-        self.assert_(True)
 
 
 if __name__ == '__main__':  # pragma: no cover
     import nose
+
     nose.runmodule()

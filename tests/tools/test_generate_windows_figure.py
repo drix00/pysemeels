@@ -37,6 +37,7 @@ from nose import SkipTest
 # Project modules.
 from pysemeels.tools.generate_windows_figure import GenerateWindowsFigure
 from pysemeels import get_current_module_path
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -57,8 +58,8 @@ class TestGenerateWindowsFigure(unittest.TestCase):
 
         self.figures_file_path = get_current_module_path(__file__, r"../../test_data\hitachi\eels_su\SCNA9_EFSTEM_C_04\windows.png")
 
-        if not os.path.isfile(self.elv_file_path):  # pragma: no cover
-            raise SkipTest
+        if is_bad_file(self.elv_file_path):
+            SkipTest
 
     def tearDown(self):
         """
@@ -90,6 +91,7 @@ class TestGenerateWindowsFigure(unittest.TestCase):
         self.assertTrue(os.path.isfile(self.figures_file_path))
 
         # self.fail("Test if the testcase is working.")
+
 
 if __name__ == '__main__':  # pragma: no cover
     import nose

@@ -38,7 +38,7 @@ from nose import SkipTest
 from pysemeels import get_current_module_path
 from pysemeels.analysis.zero_loss_peak import ZeroLossPeak
 from pysemeels.hitachi.eels_su.elv_file import ElvFile
-
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -56,8 +56,8 @@ class TestZeroLossPeak(unittest.TestCase):
 
         self.elv_file_path = get_current_module_path(__file__, "../../test_data/hitachi/eels_su/30kV_7eV.elv")
 
-        if not os.path.isfile(self.elv_file_path):
-            raise SkipTest
+        if is_bad_file(self.elv_file_path):
+            SkipTest
 
     def tearDown(self):
         """
@@ -126,7 +126,7 @@ class TestZeroLossPeak(unittest.TestCase):
             self.assertAlmostEqual(-0.07548493790601353, zero_lost_peak.skewness)
             self.assertAlmostEqual(1.5175832076107003, zero_lost_peak.kurtosis)
 
-         # self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
 
 
 if __name__ == '__main__':  # pragma: no cover

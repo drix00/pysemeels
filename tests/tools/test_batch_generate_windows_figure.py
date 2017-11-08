@@ -37,8 +37,10 @@ from nose import SkipTest
 # Project modules.
 from pysemeels.tools.batch_generate_windows_figure import BatchGenerateWindowsFigure
 from pysemeels import get_current_module_path
+from tests import is_bad_file
 
 # Globals and constants variables.
+
 
 class TestBatchGenerateWindowsFigure(unittest.TestCase):
     """
@@ -89,6 +91,7 @@ class TestBatchGenerateWindowsFigure(unittest.TestCase):
         self.assertTrue(os.path.isfile(self.figures_file_path))
 
         # self.fail("Test if the testcase is working.")
+
 
 if __name__ == '__main__':  # pragma: no cover
     import nose

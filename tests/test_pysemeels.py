@@ -2,11 +2,11 @@
 # -*- coding: utf-8 -*-
 
 """
-.. py:currentmodule:: tests.test_eftem
+.. py:currentmodule:: tests
 
 .. moduleauthor:: Hendrix Demers <hendrix.demers@mail.mcgill.ca>
 
-Tests for the module :py:mod:`pysemeels.eftem`.
+Tests for the module :py:mod:`tests`.
 """
 
 ###############################################################################
@@ -27,25 +27,25 @@ Tests for the module :py:mod:`pysemeels.eftem`.
 
 # Standard library modules.
 import unittest
-import os
+from tempfile import TemporaryFile
+import os.path
 
 # Third party modules.
-import h5py
 from nose import SkipTest
 
 # Local modules.
 
 # Project modules.
 from pysemeels import get_current_module_path
-from pysemeels.eftem import Eftem
-from tests import is_bad_file
+from tests import is_git_lfs_file, is_bad_file
+
 
 # Globals and constants variables.
 
 
-class TestEftem(unittest.TestCase):
+class TestFunctions(unittest.TestCase):
     """
-    TestCase class for the module `pysemeels.eftem`.
+    TestCase class for the module `tests` functions.
     """
 
     def setUp(self):
@@ -55,10 +55,7 @@ class TestEftem(unittest.TestCase):
 
         unittest.TestCase.setUp(self)
 
-        self.name_ref = "TestEftem"
-        self.eftem = Eftem(self.name_ref)
-
-        self.test_data_path = get_current_module_path(__file__, '../test_data')
+        self.create_git_lfs_file()
 
     def tearDown(self):
         """
@@ -75,63 +72,43 @@ class TestEftem(unittest.TestCase):
         # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
-    def test_init(self):
-        """
-        Test __init__ method.
-        """
-        name_ref = "TestEftem_init"
-        eftem = Eftem(name_ref)
+    def create_git_lfs_file(self):
+        self.git_lfs_file = TemporaryFile("w+t")
+        self.git_lfs_file.write("version https://git-lfs.github.com/spec/v1\n")
+        self.git_lfs_file.write("oid sha256:4d7a214614ab2935c943f9e0ff69d22eadbb8f32b1258daaa5e2ca24d17e2393\n")
+        self.git_lfs_file.write("size 12345\n")
+        self.git_lfs_file.write("\n")
+        self.git_lfs_file.seek(0)
 
-        self.assertEqual(name_ref, eftem.name)
-
-        # self.fail("Test if the testcase is working.")
-
-    def test_write_hdf5(self):
-        """
-        Test write_hdf5 method.
-        """
-
-        filepath = os.path.join(self.test_data_path, "test_eftem_write_hdf5.hdf5")
-        with h5py.File(filepath, "w") as hdf5_file:
-
-            self.eftem.write_hdf5(hdf5_file)
-
-            self.assertTrue(self.name_ref in hdf5_file)
-
-            root_group = hdf5_file[self.name_ref]
-
-        os.remove(filepath)
+    def test_is_git_lfs_file_bad(self):
+        file_path = get_current_module_path(__file__, "test_pysemeels.py")
+        if not os.path.isfile(file_path):
+            raise SkipTest
+        self.assertEqual(False, is_git_lfs_file(file_path))
 
         # self.fail("Test if the testcase is working.")
 
-    def test_read_hdf5(self):
-        """
-        Test read_hdf5 method.
-        """
-
-        filepath = os.path.join(self.test_data_path, "test_eftem_read_hdf5.hdf5")
-        if is_bad_file(filepath):
-            SkipTest
-
-        with h5py.File(filepath, "r") as hdf5_file:
-            self.eftem.read_hdf5(hdf5_file)
+    def test_is_git_lfs_file_good(self):
+        self.assertEqual(True, is_git_lfs_file(self.git_lfs_file))
 
         # self.fail("Test if the testcase is working.")
 
-    def test_read_hdf5_bad_project(self):
-        """
-        Test read_hdf5 method with a different project name.
-        """
+    def test_is_bad_file(self):
+        file_path = get_current_module_path(__file__, "test_pysemeels.py")
+        if not os.path.isfile(file_path):
+            raise SkipTest
+        self.assertEqual(False, is_bad_file(file_path))
 
-        name_ref = "TestProject_init"
-        eftem = Eftem(name_ref)
+        # self.fail("Test if the testcase is working.")
 
-        filepath = os.path.join(self.test_data_path, "test_eftem_read_hdf5.hdf5")
-        if is_bad_file(filepath):
-            SkipTest
+    def test_is_bad_file_git_lfs(self):
+        self.assertEqual(True, is_bad_file(self.git_lfs_file))
 
-        with h5py.File(filepath, "r") as hdf5_file:
-            self.assertRaises(ValueError, eftem.read_hdf5, hdf5_file)
+        # self.fail("Test if the testcase is working.")
+
+    def test_is_bad_file_no_file(self):
+        file_path = get_current_module_path(__file__, "../../test_data/this_file_does_not_exist.txt")
+        self.assertEqual(True, is_bad_file(file_path))
 
         # self.fail("Test if the testcase is working.")
 

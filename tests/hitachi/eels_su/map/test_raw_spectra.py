@@ -37,8 +37,10 @@ from nose import SkipTest
 # Project modules.
 from pysemeels import get_current_module_path
 from pysemeels.hitachi.eels_su.map.raw_spectra import RawSpectra
+from tests import is_bad_file
 
 # Globals and constants variables.
+
 
 class TestSimulationData(unittest.TestCase):
     """
@@ -54,8 +56,8 @@ class TestSimulationData(unittest.TestCase):
 
         self.raw_spectra_file_path = get_current_module_path(__file__, "../../../../test_data/hitachi/eels_su/30kV_march2017_7eV/RawSpectra/rawspect-1.dat")
 
-        if not os.path.isfile(self.raw_spectra_file_path):
-            raise SkipTest
+        if is_bad_file(self.raw_spectra_file_path):
+            SkipTest
 
     def tearDown(self):
         """
@@ -69,7 +71,7 @@ class TestSimulationData(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        #self.fail("Test if the testcase is working.")
+        # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
     def test_read_file(self):
@@ -89,10 +91,10 @@ class TestSimulationData(unittest.TestCase):
             self.assertEqual(0, spectrum[-1])
             self.assertEqual(1024, len(spectrum))
 
-        #self.fail("Test if the testcase is working.")
-        self.assert_(True)
+        # self.fail("Test if the testcase is working.")
 
 
 if __name__ == '__main__':  # pragma: no cover
     import nose
+
     nose.runmodule()

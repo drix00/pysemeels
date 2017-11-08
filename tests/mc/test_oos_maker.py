@@ -30,6 +30,7 @@ import unittest
 
 # Third party modules.
 from nose.tools import nottest
+from nose import SkipTest
 
 # Local modules.
 
@@ -37,6 +38,7 @@ from nose.tools import nottest
 from pysemeels.mc.oos_maker import OosMaker
 from pysemeels.mc.oos_file import OosFile
 from pysemeels import get_current_module_path
+from tests import is_bad_file
 
 # Globals and constants variables.
 
@@ -85,6 +87,9 @@ class TestOosMaker(unittest.TestCase):
         oos_file = oos_maker.get_oos_file()
 
         file_path = get_current_module_path(__file__, "../../test_data/mc/li_hcp.oos")
+        if is_bad_file(file_path):
+            SkipTest
+
         oos_file_ref = OosFile()
         oos_file_ref.read_file(file_path)
 
@@ -105,7 +110,7 @@ class TestOosMaker(unittest.TestCase):
             self.assertAlmostEqual(df_dw_ref, df_dw)
 
         self.fail("Test if the testcase is working.")
-        self.assert_(True)
+
 
 if __name__ == '__main__':  # pragma: no cover
     import nose
