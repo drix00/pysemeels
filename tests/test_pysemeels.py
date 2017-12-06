@@ -100,6 +100,14 @@ class TestFunctions(unittest.TestCase):
 
         self.assertEqual(True, is_git_lfs_file(self.git_lfs_file2))
 
+        file_path = get_current_module_path(__file__, "../test_data/30kV_7eV.elv.lfs")
+        self.assertEqual(True, os.path.isfile(file_path))
+
+        if not os.path.isfile(file_path):
+            raise SkipTest
+
+        self.assertEqual(True, is_git_lfs_file(file_path))
+
         # self.fail("Test if the testcase is working.")
 
     def test_is_bad_file(self):
