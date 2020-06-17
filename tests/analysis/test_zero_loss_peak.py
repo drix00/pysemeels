@@ -27,7 +27,7 @@ Tests for the module :py:mod:`pysemeels.analysis.zero_loss_peak`.
 
 # Standard library modules.
 import unittest
-import os.path
+import sys
 
 # Third party modules.
 import pytest
@@ -74,6 +74,7 @@ class TestZeroLossPeak(unittest.TestCase):
         # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
+    @pytest.mark.skipif(sys.platform != "win32", reason="only run on windows")
     def test_find_position(self):
         """
         Test the find_position method is working.
@@ -89,6 +90,7 @@ class TestZeroLossPeak(unittest.TestCase):
 
         # self.fail("Test if the testcase is working.")
 
+    @pytest.mark.skipif(sys.platform != "win32", reason="only run on windows")
     def test_compute_fwhm(self):
         """
         Test the compute_fwhm method is working.
@@ -106,6 +108,7 @@ class TestZeroLossPeak(unittest.TestCase):
 
         # self.fail("Test if the testcase is working.")
 
+    @pytest.mark.skipif(sys.platform != "win32", reason="only run on windows")
     def test_compute_statistics(self):
         """
         Test the compute_statistics method is working.

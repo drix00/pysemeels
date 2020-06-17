@@ -28,6 +28,7 @@ Tests for the module :py:mod:`pysemeels.tools.convert_elv`.
 # Standard library modules.
 import unittest
 import os.path
+import sys
 
 # Third party modules.
 import pytest
@@ -82,6 +83,7 @@ class TestConvertElv(unittest.TestCase):
         # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
+    @pytest.mark.skipif(sys.platform != "win32", reason="only run on windows")
     def test_convert(self):
         """
         Test the convert method.

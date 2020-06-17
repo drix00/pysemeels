@@ -28,6 +28,7 @@ Tests for the module :py:mod:`pysemeels.tools.batch_convert_elv`.
 # Standard library modules.
 import unittest
 import os.path
+import sys
 
 # Third party modules.
 import pytest
@@ -81,6 +82,7 @@ class TestBatchConvertElv(unittest.TestCase):
         # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
+    @pytest.mark.skipif(sys.platform != "win32", reason="only run on windows")
     def test_generate(self):
         """
         Test generate method.
@@ -96,6 +98,7 @@ class TestBatchConvertElv(unittest.TestCase):
 
         # self.fail("Test if the testcase is working.")
 
+    @pytest.mark.skipif(sys.platform != "win32", reason="only run on windows")
     def test_generate_recursive(self):
         """
         Test generate method.

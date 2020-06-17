@@ -28,6 +28,7 @@ Tests for the module :py:mod:`pysemeels.raw_spectrum`.
 # Standard library modules.
 import unittest
 import os
+import sys
 
 # Third party modules.
 import h5py
@@ -59,6 +60,9 @@ class TestRawSpectrum(unittest.TestCase):
         """
 
         unittest.TestCase.setUp(self)
+
+        if sys.platform != "win32":
+            pytest.skip("only run on windows")
 
         self.name_ref = "TestRawSpectrum"
         self.spectrum = RawSpectrum(self.name_ref)

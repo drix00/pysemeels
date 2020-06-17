@@ -28,6 +28,7 @@ Tests for the module :py:mod:`pysemeels.tools.generate_hdf5_file`.
 # Standard library modules.
 import unittest
 import os.path
+import sys
 
 # Third party modules.
 import h5py
@@ -94,6 +95,7 @@ class TestGenerateHdf5File(unittest.TestCase):
 
         # self.fail("Test if the testcase is working.")
 
+    @pytest.mark.skipif(sys.platform != "win32", reason="only run on windows")
     def test_add_spectrum(self):
         """
         Test the convert method.
