@@ -59,7 +59,7 @@ class ConvertElv(object):
             file_path, _extension = os.path.splitext(self.elv_file_path)
             file_path += ".msa"
 
-        with open(self.elv_file_path, 'r') as elv_text_file:
+        with open(self.elv_file_path, 'r', encoding="ANSI", errors='ignore') as elv_text_file:
             elv_file = ElvFile()
             elv_file.read(elv_text_file)
 

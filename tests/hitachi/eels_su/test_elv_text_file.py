@@ -79,7 +79,7 @@ class TestElvTextFile(unittest.TestCase):
         First test to check if the testcase is working with the testing framework.
         """
 
-        with open(self.elv_text_file_path, 'r', encoding="UTF-16") as elv_text_file:
+        with open(self.elv_text_file_path, 'r', encoding="UTF-16", errors='ignore') as elv_text_file:
             elv_text_parameters = ElvTextParameters()
             elv_text_parameters.read(elv_text_file)
 

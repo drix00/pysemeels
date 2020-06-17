@@ -55,7 +55,7 @@ class GenerateHdf5File(object):
 
         elv_text_file_path, _extension = os.path.splitext(file_path)
         elv_text_file_path += '.txt'
-        with open(elv_text_file_path, 'r', encoding="UTF-16") as elv_text_file:
+        with open(elv_text_file_path, 'r', encoding="UTF-16", errors='ignore') as elv_text_file:
             elv_text_parameters = ElvTextParameters()
             elv_text_parameters.read(elv_text_file)
 
@@ -70,7 +70,7 @@ class GenerateHdf5File(object):
             spectrum_group.attrs[HDF5_ENERGY_LOSS] = elv_text_parameters.energy_loss_eV
             spectrum_group.attrs[HDF5_ACQUISITION_SPEED] = elv_text_parameters.speed_us
 
-        with open(file_path, 'r') as elv_text_file:
+        with open(file_path, 'r', encoding="ANSI", errors='ignore') as elv_text_file:
             elv_file = ElvFile()
             elv_file.read(elv_text_file)
 

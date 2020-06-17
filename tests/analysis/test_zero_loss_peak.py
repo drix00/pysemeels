@@ -79,7 +79,7 @@ class TestZeroLossPeak(unittest.TestCase):
         Test the find_position method is working.
 
         """
-        with open(self.elv_file_path, 'r') as elv_text_file:
+        with open(self.elv_file_path, 'r', encoding="ANSI", errors='ignore') as elv_text_file:
             elv_file = ElvFile()
             elv_file.read(elv_text_file)
 
@@ -94,7 +94,7 @@ class TestZeroLossPeak(unittest.TestCase):
         Test the compute_fwhm method is working.
         """
 
-        with open(self.elv_file_path, 'r') as elv_text_file:
+        with open(self.elv_file_path, 'r', encoding="ANSI", errors='ignore') as elv_text_file:
             elv_file = ElvFile()
             elv_file.read(elv_text_file)
 
@@ -111,7 +111,7 @@ class TestZeroLossPeak(unittest.TestCase):
         Test the compute_statistics method is working.
         """
 
-        with open(self.elv_file_path, 'r') as elv_text_file:
+        with open(self.elv_file_path, 'r', encoding="ANSI", errors='ignore') as elv_text_file:
             elv_file = ElvFile()
             elv_file.read(elv_text_file)
 

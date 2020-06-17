@@ -150,7 +150,7 @@ class RawSpectrum(object):
         if extra_parameters:
             self.extra_parameters.update(extra_parameters)
 
-        with open(filepath, 'r') as elv_file:
+        with open(filepath, 'r', encoding="ANSI", errors='ignore') as elv_file:
             elv_data = ElvFile()
             elv_data.read(elv_file)
 
@@ -162,7 +162,7 @@ class RawSpectrum(object):
             self.eels_parameters.update(elv_data.parameters())
 
         filepath_txt = os.path.splitext(filepath)[0] + ".txt"
-        with open(filepath_txt, 'r', encoding="UTF-16") as elv_text_file:
+        with open(filepath_txt, 'r', encoding="UTF-16", errors='ignore') as elv_text_file:
             elv_text_parameters = ElvTextParameters()
             elv_text_parameters.read(elv_text_file)
 
