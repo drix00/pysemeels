@@ -30,7 +30,7 @@ import unittest
 import os.path
 
 # Third party modules.
-from nose import SkipTest
+import pytest
 
 # Local modules.
 
@@ -55,7 +55,7 @@ class TestTextFile(unittest.TestCase):
 
         self.text_file_path = get_current_module_path(__file__, "../../../../test_data/hitachi/eels_su/30kV_march2017_7eV/30kV_march2017_7eV.txt")
         if is_bad_file(self.text_file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(self.text_file_path))
 
     def tearDown(self):
         """
@@ -115,9 +115,3 @@ class TestTextFile(unittest.TestCase):
             self.assertEqual(20, text_parameters.integration)
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

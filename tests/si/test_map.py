@@ -31,7 +31,7 @@ import os
 
 # Third party modules.
 import h5py
-from nose import SkipTest
+import pytest
 
 # Local modules.
 
@@ -111,7 +111,7 @@ class TestMap(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_map_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(filepath))
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.map.read_hdf5(hdf5_file)
@@ -128,7 +128,7 @@ class TestMap(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_map_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(filepath))
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, map.read_hdf5, hdf5_file)
@@ -143,7 +143,7 @@ class TestMap(unittest.TestCase):
         si_map_folder = os.path.join(self.test_data_path, "hitachi/eels_su/zlp_2.5kx_60eV_map_lower")
 
         if not os.path.isdir(si_map_folder):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(si_map_folder))
 
         name = os.path.basename(si_map_folder)
         si_map = Map(name)
@@ -157,9 +157,3 @@ class TestMap(unittest.TestCase):
         # self.assertEqual(1024, len(map.raw_counts))
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

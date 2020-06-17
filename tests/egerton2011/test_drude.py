@@ -29,7 +29,7 @@ Tests for the module :py:mod:`pysemeels.egerton2011.drude`.
 import unittest
 
 # Third party modules.
-from nose import SkipTest
+import pytest
 
 # Local modules.
 
@@ -93,7 +93,7 @@ class TestDrude(unittest.TestCase):
 
         test_data_file_path = get_current_module_path(__file__, "../../test_data/egerton2011/Drude.ssd")
         if is_bad_file(test_data_file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(test_data_file_path))
 
         with open(test_data_file_path, 'r') as ref_file:
             lines = ref_file.readlines()
@@ -109,7 +109,7 @@ class TestDrude(unittest.TestCase):
 
         test_data_file_path = get_current_module_path(__file__, "../../test_data/egerton2011/Drude.eps")
         if is_bad_file(test_data_file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(test_data_file_path))
 
         with open(test_data_file_path, 'r') as ref_file:
             lines = ref_file.readlines()
@@ -149,9 +149,3 @@ class TestDrude(unittest.TestCase):
         self.assertAlmostEqual(131.691587, mfp_free_nm, 6)
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

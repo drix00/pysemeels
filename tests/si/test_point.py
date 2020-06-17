@@ -31,7 +31,7 @@ import os
 
 # Third party modules.
 import h5py
-from nose import SkipTest
+import pytest
 
 # Local modules.
 
@@ -111,7 +111,7 @@ class TestPoint(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_point_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(filepath))
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.point.read_hdf5(hdf5_file)
@@ -128,15 +128,9 @@ class TestPoint(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_point_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(filepath))
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, point.read_hdf5, hdf5_file)
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

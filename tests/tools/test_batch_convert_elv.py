@@ -30,7 +30,7 @@ import unittest
 import os.path
 
 # Third party modules.
-from nose import SkipTest
+import pytest
 
 # Local modules.
 
@@ -59,7 +59,7 @@ class TestBatchConvertElv(unittest.TestCase):
         self.msa_file_path_2 = get_current_module_path(__file__, r"../../test_data\hitachi\eels_su\SCNA9_EFSTEM_C_04\windows.msa")
 
         if not os.path.isdir(self.path):  # pragma: no cover
-            raise SkipTest
+            pytest.skip("File not found: {}".format(self.path))
 
     def tearDown(self):
         """
@@ -110,9 +110,3 @@ class TestBatchConvertElv(unittest.TestCase):
         self.assertTrue(os.path.isfile(self.msa_file_path_2))
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

@@ -109,8 +109,3 @@ class TestPrism(unittest.TestCase):
         self.assertAlmostEqual(-0.068742, result2.yp, 5)
 
         #self.fail("Test if the testcase is working.")
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

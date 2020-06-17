@@ -30,7 +30,7 @@ import unittest
 import os.path
 
 # Third party modules.
-from nose import SkipTest
+import pytest
 
 # Local modules.
 
@@ -57,7 +57,7 @@ class TestSimulationData(unittest.TestCase):
         self.ana_file_path = get_current_module_path(__file__, "../../../test_data/hitachi/eels_su/30kV_7eV.ana")
 
         if is_bad_file(self.ana_file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(self.ana_file_path))
 
     def tearDown(self):
         """
@@ -99,9 +99,3 @@ class TestSimulationData(unittest.TestCase):
             self.assertEqual(1024, len(ana_file.dark_currents))
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

@@ -29,7 +29,7 @@ Tests for the module :py:mod:`pysemeels.egerton2011.spec_gen`.
 import unittest
 
 # Third party modules.
-from nose import SkipTest
+import pytest
 
 # Local modules.
 
@@ -80,7 +80,7 @@ class TestSpecGen(unittest.TestCase):
 
         test_data_file_path = get_current_module_path(__file__, "../../test_data/egerton2011/SpecGen.ssd")
         if is_bad_file(test_data_file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(test_data_file_path))
 
         with open(test_data_file_path, 'r') as ref_file:
             lines = ref_file.readlines()
@@ -96,7 +96,7 @@ class TestSpecGen(unittest.TestCase):
 
         test_data_file_path = get_current_module_path(__file__, "../../test_data/egerton2011/SpecGen.psd")
         if is_bad_file(test_data_file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(test_data_file_path))
 
         with open(test_data_file_path, 'r') as ref_file:
             lines = ref_file.readlines()
@@ -111,9 +111,3 @@ class TestSpecGen(unittest.TestCase):
                 self.assertAlmostEqual(yy, outpsd[channel_id], 7, channel_id)
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

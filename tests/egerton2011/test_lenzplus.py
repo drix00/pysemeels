@@ -107,9 +107,3 @@ class TestSigAdf(unittest.TestCase):
         self.assertAlmostEqual(1.2306, result3_w_broadening.lnIt_I0, 4)
 
         #self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

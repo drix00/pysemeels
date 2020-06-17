@@ -12,10 +12,6 @@ with open('HISTORY.rst') as history_file:
 with open('requirements.txt') as requirements_file:
     requirements = requirements_file.read()
 
-test_requirements = [
-    "nose",
-]
-
 packages = find_packages()
 
 setup(
@@ -31,6 +27,11 @@ setup(
                  'pysemeels'},
     include_package_data=True,
     install_requires=requirements,
+    tests_require=['pytest', 'coverage', 'pytest-cov'],
+    extras_require={
+        'testing': ['pytest', 'coverage', 'pytest-cov'],
+        'develop': ['setuptools', 'Sphinx', 'sphinx-rtd-theme', 'pytest', 'coverage', 'pytest-cov']
+    },
     license="Apache Software License 2.0",
     zip_safe=False,
     keywords='pysemeels',
@@ -48,5 +49,4 @@ setup(
         'Programming Language :: Python :: 3.5',
     ],
     test_suite='tests',
-    tests_require=test_requirements
 )

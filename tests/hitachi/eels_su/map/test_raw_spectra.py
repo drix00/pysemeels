@@ -30,7 +30,7 @@ import unittest
 import os.path
 
 # Third party modules.
-from nose import SkipTest
+import pytest
 
 # Local modules.
 
@@ -57,7 +57,7 @@ class TestSimulationData(unittest.TestCase):
         self.raw_spectra_file_path = get_current_module_path(__file__, "../../../../test_data/hitachi/eels_su/30kV_march2017_7eV/RawSpectra/rawspect-1.dat")
 
         if is_bad_file(self.raw_spectra_file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(self.raw_spectra_file_path))
 
     def tearDown(self):
         """
@@ -92,9 +92,3 @@ class TestSimulationData(unittest.TestCase):
             self.assertEqual(1024, len(spectrum))
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

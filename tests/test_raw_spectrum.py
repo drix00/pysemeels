@@ -31,8 +31,8 @@ import os
 
 # Third party modules.
 import h5py
-from nose import SkipTest
 import numpy as np
+import pytest
 
 # Local modules.
 
@@ -70,7 +70,7 @@ class TestRawSpectrum(unittest.TestCase):
         self.elv_file_path = os.path.join(self.test_data_path, "hitachi/eels_su/30kV_7eV.elv")
 
         if is_bad_file(self.elv_file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(self.elv_file_path))
 
         filepath = self.elv_file_path
         name = os.path.splitext(os.path.basename(filepath))[0]
@@ -128,7 +128,7 @@ class TestRawSpectrum(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_raw_spectrum_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(filepath))
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.spectrum.read_hdf5(hdf5_file)
@@ -145,7 +145,7 @@ class TestRawSpectrum(unittest.TestCase):
 
         filepath = os.path.join(self.test_data_path, "test_raw_spectrum_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(filepath))
 
         with h5py.File(filepath, "r") as hdf5_file:
             self.assertRaises(ValueError, spectrum.read_hdf5, hdf5_file)
@@ -160,7 +160,7 @@ class TestRawSpectrum(unittest.TestCase):
         self.elv_file_path = os.path.join(self.test_data_path, "hitachi/eels_su/30kV_7eV.elv")
 
         if is_bad_file(self.elv_file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(self.elv_file_path))
 
         filepath = self.elv_file_path
         name = os.path.splitext(os.path.basename(filepath))[0]
@@ -238,7 +238,7 @@ class TestRawSpectrum(unittest.TestCase):
         spectrum_read = RawSpectrum(name)
         filepath = os.path.join(self.test_data_path, "test_raw_spectrum_import_data_read_hdf5.hdf5")
         if is_bad_file(filepath):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(filepath))
 
         with h5py.File(filepath, "r") as hdf5_file:
             spectrum_read.read_hdf5(hdf5_file)
@@ -313,9 +313,3 @@ class TestRawSpectrum(unittest.TestCase):
             self.assertEqual(37443, parameters[HDF5_MAGNIFICATION])
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

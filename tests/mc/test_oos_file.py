@@ -29,7 +29,7 @@ Tests for the module :py:mod:`pysemeels.mc.oos_file`.
 import unittest
 
 # Third party modules.
-from nose import SkipTest
+import pytest
 
 # Local modules.
 
@@ -75,7 +75,7 @@ class TestOosFile(unittest.TestCase):
 
         file_path = get_current_module_path(__file__, "../../test_data/mc/li_hcp.oos")
         if is_bad_file(file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(file_path))
 
         oos_file = OosFile()
         oos_file.read_file(file_path)
@@ -95,9 +95,3 @@ class TestOosFile(unittest.TestCase):
         self.assertAlmostEqual(4.6583e-13, oos_file.oos[-1])
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

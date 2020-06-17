@@ -30,8 +30,8 @@ import unittest
 import os.path
 
 # Third party modules.
-from nose import SkipTest
 import h5py
+import pytest
 
 # Local modules.
 
@@ -60,7 +60,7 @@ class TestGenerateHdf5File(unittest.TestCase):
         self.hdf5_file_path = get_current_module_path(__file__, "../../test_data/hitachi/eels_su/30kV_7eV.hdf5")
 
         if not os.path.isfile(self.elv_file_path):  # pragma: no cover
-            raise SkipTest
+            pytest.skip("File not found: {}".format(self.elv_file_path))
 
     def tearDown(self):
         """
@@ -183,9 +183,3 @@ class TestGenerateHdf5File(unittest.TestCase):
             self.assertEqual(1023, len(dark_currents))
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()

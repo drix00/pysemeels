@@ -31,7 +31,7 @@ from tempfile import TemporaryFile
 import os.path
 
 # Third party modules.
-from nose import SkipTest
+import pytest
 
 # Local modules.
 
@@ -90,7 +90,7 @@ class TestFunctions(unittest.TestCase):
     def test_is_git_lfs_file_bad(self):
         file_path = get_current_module_path(__file__, "test_pysemeels.py")
         if not os.path.isfile(file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(file_path))
         self.assertEqual(False, is_git_lfs_file(file_path))
 
         # self.fail("Test if the testcase is working.")
@@ -104,7 +104,7 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(True, os.path.isfile(file_path))
 
         if not os.path.isfile(file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(file_path))
 
         self.assertEqual(True, is_git_lfs_file(file_path))
 
@@ -113,7 +113,7 @@ class TestFunctions(unittest.TestCase):
     def test_is_bad_file(self):
         file_path = get_current_module_path(__file__, "test_pysemeels.py")
         if not os.path.isfile(file_path):
-            raise SkipTest
+            pytest.skip("File not found: {}".format(file_path))
         self.assertEqual(False, is_bad_file(file_path))
 
         # self.fail("Test if the testcase is working.")
@@ -128,9 +128,3 @@ class TestFunctions(unittest.TestCase):
         self.assertEqual(True, is_bad_file(file_path))
 
         # self.fail("Test if the testcase is working.")
-
-
-if __name__ == '__main__':  # pragma: no cover
-    import nose
-
-    nose.runmodule()
