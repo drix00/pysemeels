@@ -29,6 +29,7 @@ Tests for the module :py:mod:`tests`.
 import unittest
 from tempfile import TemporaryFile
 import os.path
+import sys
 
 # Third party modules.
 import pytest
@@ -95,6 +96,7 @@ class TestFunctions(unittest.TestCase):
 
         # self.fail("Test if the testcase is working.")
 
+    @pytest.mark.skipif(sys.platform != "win32", reason="only run on windows")
     def test_is_git_lfs_file_good(self):
         self.assertEqual(True, is_git_lfs_file(self.git_lfs_file))
 

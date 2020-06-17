@@ -30,7 +30,6 @@ install:
 
 # command to run tests, e.g. python setup.py test
 script:
-  - nosetests
   - pytest --cov=pysemeels --cov=tests --cov-branch --cov-report xml
 
 after_success:

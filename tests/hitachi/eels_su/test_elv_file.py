@@ -27,7 +27,7 @@ Tests for the module :py:mod:`xrayspectrummodeling.map.simulation_data as simula
 
 # Standard library modules.
 import unittest
-import os.path
+import sys
 
 # Third party modules.
 import pytest
@@ -74,6 +74,7 @@ class TestSimulationData(unittest.TestCase):
         # self.fail("Test if the testcase is working.")
         self.assert_(True)
 
+    @pytest.mark.skipif(sys.platform != "win32", reason="only run on windows")
     def test_read_file(self):
         """
         First test to check if the testcase is working with the testing framework.
